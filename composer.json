@@ -1,0 +1,45 @@
+{
+    "name": "fundevogel/php-mastodon",
+    "description": "A small PHP library for interacting with Mastodon's REST API.",
+    "type": "library",
+    "license": "GPL-3.0",
+    "version": "0.1.0",
+    "keywords": ["mastodon", "oauth", "api", "rest", "social"],
+    "homepage": "https://fundevogel.de",
+    "scripts": {
+        "cs-dry": "php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix",
+        "test": "phpunit"
+    },
+    "authors": [
+        {
+            "name": "Kinder- und Jugendbuchhandlung Fundevogel",
+            "email": "maschinenraum@fundevogel.de",
+            "homepage": "https://fundevogel.de",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Martin Folkers",
+            "email": "hello@twobrain.io",
+            "homepage": "https://twobrain.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.3"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "phpunit/phpunit": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fundevogel\\Mastodon\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fundevogel\\Mastodon\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,7 @@
+# Composer + sensitive files
+/composer.lock
+/vendor
+*.cache
+
+# Auto-generated
+/dist
