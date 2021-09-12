@@ -115,6 +115,8 @@ class Api
      * @param array $query
      * @param array $headers
      * @param array $errors
+     *
+     * @return array
      */
     public function get(string $endpoint, array $query = [], array $headers = [], $errors = []): array
     {
@@ -129,6 +131,8 @@ class Api
      * @param array $query
      * @param array $headers
      * @param array $errors
+     *
+     * @return array
      */
     public function post(string $endpoint, array $query = [], array $headers = [], $errors = []): array
     {
@@ -143,6 +147,8 @@ class Api
      * @param array $query
      * @param array $headers
      * @param array $errors
+     *
+     * @return array
      */
     public function put(string $endpoint, array $query = [], array $headers = [], $errors = []): array
     {
@@ -157,6 +163,8 @@ class Api
      * @param array $query
      * @param array $headers
      * @param array $errors
+     *
+     * @return array
      */
     public function patch(string $endpoint, array $query = [], array $headers = [], $errors = []): array
     {
@@ -171,6 +179,8 @@ class Api
      * @param array $query
      * @param array $headers
      * @param array $errors
+     *
+     * @return array
      */
     public function delete(string $endpoint, array $query = [], array $headers = [], $errors = []): array
     {
@@ -186,6 +196,8 @@ class Api
      * @param array $query
      * @param array $headers
      * @param array $errors
+     *
+     * @return array
      */
     private function request(string $method, string $endpoint, array $query, array $headers, $errors): array
     {
@@ -208,21 +220,15 @@ class Api
             $url .= '?' . http_build_query($query);
         }
 
-        var_dump($url);
-
         # (2) .. HTTP headers
         if (!empty($this->accessToken)) {
             $headers['Accept'] = 'application/json';
             $headers['Authorization'] = "Bearer {$this->accessToken}";
         }
 
-        var_dump($headers);
-
         try {
             # Send request
             $response = $client->request($method, $url, ['headers' => $headers]);
-            var_dump($response->getStatusCode());
-            var_dump($response->getBody());
 
             if ($response->getStatusCode() == 200) {
                 return json_decode($response->getBody(), true);
@@ -256,13 +262,19 @@ class Api
      * 'Apps'
      */
 
-    public function apps()
+    /**
+     * @return \Fundevogel\Mastodon\Apps\Apps;
+     */
+    public function apps(): \Fundevogel\Mastodon\Apps\Apps
     {
         return new Apps($this);
     }
 
 
-    public function oauth()
+    /**
+     * @return \Fundevogel\Mastodon\Apps\OAuth;
+     */
+    public function oauth(): \Fundevogel\Mastodon\Apps\OAuth
     {
         return new OAuth($this);
     }
@@ -272,79 +284,118 @@ class Api
      * 'Accounts'
      */
 
-    public function accounts()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Accounts;
+     */
+    public function accounts(): \Fundevogel\Mastodon\Accounts\Accounts
     {
         return new Accounts($this);
     }
 
 
-    public function bookmarks()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Bookmarks;
+     */
+    public function bookmarks(): \Fundevogel\Mastodon\Accounts\Bookmarks
     {
         return new Bookmarks($this);
     }
 
 
-    public function favourites()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Favourites;
+     */
+    public function favourites(): \Fundevogel\Mastodon\Accounts\Favourites
     {
         return new Favourites($this);
     }
 
 
-    public function mutes()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Mutes;
+     */
+    public function mutes(): \Fundevogel\Mastodon\Accounts\Mutes
     {
         return new Mutes($this);
     }
 
 
-    public function blocks()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Blocks;
+     */
+    public function blocks(): \Fundevogel\Mastodon\Accounts\Blocks
     {
         return new Blocks($this);
     }
 
 
-    public function domainBlocks()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\DomainBlocks;
+     */
+    public function domainBlocks(): \Fundevogel\Mastodon\Accounts\DomainBlocks
     {
         return new DomainBlocks($this);
     }
 
 
-    public function filters()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Filters;
+     */
+    public function filters(): \Fundevogel\Mastodon\Accounts\Filters
     {
         return new Filters($this);
     }
 
 
-    public function reports()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Reports;
+     */
+    public function reports(): \Fundevogel\Mastodon\Accounts\Reports
     {
         return new Reports($this);
     }
 
 
-    public function followRequests()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\FollowRequests;
+     */
+    public function followRequests(): \Fundevogel\Mastodon\Accounts\FollowRequests
     {
         return new FollowRequests($this);
     }
 
 
-    public function endorsements()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Endorsements;
+     */
+    public function endorsements(): \Fundevogel\Mastodon\Accounts\Endorsements
     {
         return new Endorsements($this);
     }
 
 
-    public function featuredTags()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\FeaturedTags;
+     */
+    public function featuredTags(): \Fundevogel\Mastodon\Accounts\FeaturedTags
     {
         return new FeaturedTags($this);
     }
 
 
-    public function preferences()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Preferences;
+     */
+    public function preferences(): \Fundevogel\Mastodon\Accounts\Preferences
     {
         return new Preferences($this);
     }
 
 
-    public function suggestions()
+    /**
+     * @return \Fundevogel\Mastodon\Accounts\Suggestions;
+     */
+    public function suggestions(): \Fundevogel\Mastodon\Accounts\Suggestions
     {
         return new Suggestions($this);
     }
@@ -354,25 +405,37 @@ class Api
      * 'Statuses'
      */
 
-    public function statuses()
+    /**
+     * @return \Fundevogel\Mastodon\Statuses\Statuses;
+     */
+    public function statuses(): \Fundevogel\Mastodon\Statuses\Statuses
     {
         return new Statuses($this);
     }
 
 
-    public function media()
+    /**
+     * @return \Fundevogel\Mastodon\Statuses\Media;
+     */
+    public function media(): \Fundevogel\Mastodon\Statuses\Media
     {
         return new Media($this);
     }
 
 
-    public function polls()
+    /**
+     * @return \Fundevogel\Mastodon\Statuses\Polls;
+     */
+    public function polls(): \Fundevogel\Mastodon\Statuses\Polls
     {
         return new Polls($this);
     }
 
 
-    public function scheduledStatuses()
+    /**
+     * @return \Fundevogel\Mastodon\Statuses\ScheduledStatuses;
+     */
+    public function scheduledStatuses(): \Fundevogel\Mastodon\Statuses\ScheduledStatuses
     {
         return new ScheduledStatuses($this);
     }
@@ -382,25 +445,37 @@ class Api
      * 'Timelines'
      */
 
-    public function timelines()
+    /**
+     * @return \Fundevogel\Mastodon\Timelines\Timelines;
+     */
+    public function timelines(): \Fundevogel\Mastodon\Timelines\Timelines
     {
         return new Timelines($this);
     }
 
 
-    public function conversations()
+    /**
+     * @return \Fundevogel\Mastodon\Timelines\Conversations;
+     */
+    public function conversations(): \Fundevogel\Mastodon\Timelines\Conversations
     {
         return new Conversations($this);
     }
 
 
-    public function lists()
+    /**
+     * @return \Fundevogel\Mastodon\Timelines\Lists;
+     */
+    public function lists(): \Fundevogel\Mastodon\Timelines\Lists
     {
         return new Lists($this);
     }
 
 
-    public function markers()
+    /**
+     * @return \Fundevogel\Mastodon\Timelines\Markers;
+     */
+    public function markers(): \Fundevogel\Mastodon\Timelines\Markers
     {
         return new Markers($this);
     }
@@ -410,25 +485,37 @@ class Api
      * 'Instance'
      */
 
-    public function instance()
+    /**
+     * @return \Fundevogel\Mastodon\Instance\Instance;
+     */
+    public function instance(): \Fundevogel\Mastodon\Instance\Instance
     {
         return new Instance($this);
     }
 
 
-    public function trends()
+    /**
+     * @return \Fundevogel\Mastodon\Instance\Trends;
+     */
+    public function trends(): \Fundevogel\Mastodon\Instance\Trends
     {
         return new Trends($this);
     }
 
 
-    public function directory()
+    /**
+     * @return \Fundevogel\Mastodon\Instance\Directory;
+     */
+    public function directory(): \Fundevogel\Mastodon\Instance\Directory
     {
         return new Directory($this);
     }
 
 
-    public function customEmojis()
+    /**
+     * @return \Fundevogel\Mastodon\Instance\CustomEmojis;
+     */
+    public function customEmojis(): \Fundevogel\Mastodon\Instance\CustomEmojis
     {
         return new CustomEmojis($this);
     }
@@ -438,9 +525,12 @@ class Api
      * 'Announcements'
      */
 
-    public function Announcements()
+    /**
+     * @return \Fundevogel\Mastodon\Announcements\Announcements;
+     */
+    public function announcements(): \Fundevogel\Mastodon\Announcements\Announcements
     {
-        return new announcements($this);
+        return new Announcements($this);
     }
 
 
@@ -448,7 +538,10 @@ class Api
      * 'Proofs'
      */
 
-    public function proofs()
+    /**
+     * @return \Fundevogel\Mastodon\Proofs\Proofs;
+     */
+    public function proofs(): \Fundevogel\Mastodon\Proofs\Proofs
     {
         return new Proofs($this);
     }
@@ -458,7 +551,10 @@ class Api
      * 'OEmbed'
      */
 
-    public function oembed()
+    /**
+     * @return \Fundevogel\Mastodon\OEmbed\OEmbed;
+     */
+    public function oembed(): \Fundevogel\Mastodon\OEmbed\OEmbed
     {
         return new OEmbed($this);
     }
