@@ -28,8 +28,8 @@ $api = new Api();
 $api->instance = 'freiburg.social';
 
 # Generate access token via ..
-# (1) OAuth call
-$api->accessToken = $api->oauth()->token('qRgD4PfAaLtGdTD8AqB9xjV9HhHNMpmQfAwduIDoO-4', 'zpCZc082NnKZMOtjmPrIkLnnqXnOssa-SQU8bxjJsIo')['access_token'];
+# (1) .. OAuth call or ..
+$api->accessToken = $api->oauth()->token('cl13nt_1d', 'cl13nt_s3cr3t')['access_token'];
 
 # (2) .. app creation (create an app, get one `access_token` for free!)
 $api->accessToken = 'ur-t0t4lly-s3cr3t-p4ssw@rd';
@@ -40,7 +40,7 @@ foreach ($api->accounts()->statuses('106612343490709443') as $status) {
 }
 
 # Fetch followers
-foreach ($api->accounts()->followers('106612343490709443') as $status) {
+foreach ($api->accounts()->followers('106612343490709443') as $follower) {
     echo $follower['display_name'];
 }
 
