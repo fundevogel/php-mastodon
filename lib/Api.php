@@ -60,7 +60,7 @@ class Api
      *
      * @var string
      */
-    public $instance = 'mastodon.social';
+    public $instance;
 
 
     /**
@@ -103,9 +103,29 @@ class Api
     public $accessToken;
 
 
-    // public function __contruct() {
-    //     return;
-    // }
+    /**
+     * Constructor
+     *
+     * @param string $instance Instance name
+     * @param string $clientID Client ID, obtained during app registration
+     * @param string $clientSecret Client secret, obtained during app registration
+     *
+     * @return void
+     */
+    public function __contruct(string $instance = 'mastodon.social', string $clientID = '', string $clientSecret = '')
+    {
+        # Set instance
+        $this->instance = $instance;
+
+        # Attempt to obtain an access token
+        $tokenEntity = $api->oauth()->token($clientID, $clientSecret);
+
+        # If successful ..
+        if (isset($tokenEntity['acccess_token'])) {
+            # .. store it for later
+            $this->accessToken = $tokenEntity['access_token'];
+        }
+    }
 
 
     /**
