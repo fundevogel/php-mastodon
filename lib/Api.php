@@ -60,7 +60,7 @@ class Api
      *
      * @var string
      */
-    public $instance;
+    private $instance;
 
 
     /**
