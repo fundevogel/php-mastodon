@@ -269,6 +269,8 @@ class Api
         }
 
         # (2) .. HTTP headers
+        $headers = array_merge($this->headers, $headers);
+
         if (!empty($this->accessToken)) {
             $headers['Accept'] = 'application/json';
             $headers['Authorization'] = "Bearer {$this->accessToken}";
