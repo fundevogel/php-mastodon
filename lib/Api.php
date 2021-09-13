@@ -157,6 +157,34 @@ class Api
 
 
     /**
+     * Logs out of an account
+     *
+     * @param string $clientID Client ID, obtained during app registration
+     * @param string $clientSecret Client secret, obtained during app registration
+     *
+     * @return bool Whether logging out was successful
+     */
+    public function logOut(string $clientID = '', string $clientSecret = ''): bool
+    {
+        # Revoke access token
+        $tokenEntity = $this->oauth()->revoke($clientID, $clientSecret, $this->accessToken);
+
+        if (empty($tokenEntity)) {
+            # Reset relevant data
+            # (1) Access token
+            $this->accessToken = '';
+
+            # (2) Account ID
+            $this->id = '';
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
      * Sends GET request
      *
      * @param string $endpoint
