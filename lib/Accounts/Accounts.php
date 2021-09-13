@@ -124,8 +124,13 @@ class Accounts extends ApiMethod
      *
      * @return array Account
      */
-    public function get(string $id): array
+    public function get(string $id = ''): array
     {
+        # Fallback to current account
+        if (empty($id)) {
+            $id = $this->api->id;
+        }
+
         $endpoint = "{$this->endpoint}/{$id}";
 
         return $this->api->get($endpoint);
@@ -144,8 +149,13 @@ class Accounts extends ApiMethod
      *
      * @return array Array of Status
      */
-    public function statuses(string $id, string $minID = '', bool $excludeReblogs = true, string $tagged = ''): array
+    public function statuses(string $id = '', string $minID = '', bool $excludeReblogs = true, string $tagged = ''): array
     {
+        # Fallback to current account
+        if (empty($id)) {
+            $id = $this->api->id;
+        }
+
         $endpoint = "{$this->endpoint}/{$id}/statuses";
 
         return $this->api->get($endpoint, [
@@ -168,8 +178,13 @@ class Accounts extends ApiMethod
      *
      * @return array Array of Account
      */
-    public function followers(string $id, string $maxID = '', string $sinceID = '', int $limit = 20): array
+    public function followers(string $id = '', string $maxID = '', string $sinceID = '', int $limit = 20): array
     {
+        # Fallback to current account
+        if (empty($id)) {
+            $id = $this->api->id;
+        }
+
         $endpoint = "{$this->endpoint}/{$id}/followers";
 
         return $this->api->get($endpoint, [
@@ -192,8 +207,13 @@ class Accounts extends ApiMethod
      *
      * @return array Array of Account
      */
-    public function following(string $id, string $maxID = '', string $sinceID = '', int $limit = 40): array
+    public function following(string $id = '', string $maxID = '', string $sinceID = '', int $limit = 40): array
     {
+        # Fallback to current account
+        if (empty($id)) {
+            $id = $this->api->id;
+        }
+
         $endpoint = "{$this->endpoint}/{$id}/following";
 
         return $this->api->get($endpoint, [
@@ -213,8 +233,13 @@ class Accounts extends ApiMethod
      *
      * @return array Array of FeaturedTag
      */
-    public function featuredTags(string $id): array
+    public function featuredTags(string $id = ''): array
     {
+        # Fallback to current account
+        if (empty($id)) {
+            $id = $this->api->id;
+        }
+
         $endpoint = "{$this->endpoint}/{$id}/featured_tags";
 
         return $this->api->get($endpoint);
@@ -230,8 +255,13 @@ class Accounts extends ApiMethod
      *
      * @return array Array of List
      */
-    public function lists(string $id): array
+    public function lists(string $id = ''): array
     {
+        # Fallback to current account
+        if (empty($id)) {
+            $id = $this->api->id;
+        }
+
         $endpoint = "{$this->endpoint}/{$id}/lists";
 
         return $this->api->get($endpoint);
@@ -245,8 +275,13 @@ class Accounts extends ApiMethod
      *
      * @return array Array of IdentityProof
      */
-    public function identityProofs(string $id): array
+    public function identityProofs(string $id = ''): array
     {
+        # Fallback to current account
+        if (empty($id)) {
+            $id = $this->api->id;
+        }
+
         $endpoint = "{$this->endpoint}/{$id}/identity_proofs";
 
         return $this->api->get($endpoint);

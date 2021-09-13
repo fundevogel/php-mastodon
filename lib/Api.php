@@ -108,7 +108,7 @@ class Api
      *
      * @var string
      */
-    private $id;
+    public $id;
 
 
     /**
