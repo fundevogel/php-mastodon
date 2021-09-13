@@ -87,9 +87,9 @@ class OAuth extends ApiMethod
      *
      * Revoke an access token to make it no longer valid for use
      *
-     * @param string $clientID
-     * @param string $clientSecret
-     * @param string $token
+     * @param string $clientID Client ID, obtained during app registration
+     * @param string $clientSecret Client secret, obtained during app registration
+     * @param string $token The previously obtained token, to be invalidated
      *
      * @return array
      */

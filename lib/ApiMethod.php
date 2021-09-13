@@ -23,6 +23,7 @@ abstract Class ApiMethod
      */
     public function __construct(\Fundevogel\Mastodon\Api $api)
     {
+        # Supply access to API
         $this->api = $api;
     }
 }

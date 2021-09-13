@@ -23,11 +23,11 @@ class Statuses extends ApiMethod
     /**
      * Publish new status
      *
-     * @param string $id
+     * Post a new status
      *
-     * @return array
+     * @return array Status. When `scheduled_at` is present, ScheduledStatus is returned instead
      */
-    // public function post(string $id = ''): array
+    // public function post(): array
     // {
     //     $endpoint = "{$this->endpoint}/{$id}";
 
@@ -38,9 +38,11 @@ class Statuses extends ApiMethod
     /**
      * View specific status
      *
-     * @param string $id
+     * View information about a status
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Status
      */
     public function get(string $id): array
     {
@@ -53,9 +55,11 @@ class Statuses extends ApiMethod
     /**
      * Delete status
      *
-     * @param string $id
+     * Delete one of your own statuses
      *
-     * @return array
+     * @param string $id Local ID of a status in the database. Must be owned by authenticated account
+     *
+     * @return array Status with source `text` and `media_attachments` or `poll`
      */
     public function delete(string $id): array
     {
@@ -68,9 +72,11 @@ class Statuses extends ApiMethod
     /**
      * Parent and child statuses
      *
-     * @param string $id
+     * View statuses above and below this status in the thread
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Context
      */
     public function context(string $id): array
     {
@@ -83,9 +89,11 @@ class Statuses extends ApiMethod
     /**
      * Boosted by
      *
-     * @param string $id
+     * View who boosted a given status
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Array of Account
      */
     public function rebloggedBy(string $id): array
     {
@@ -98,9 +106,11 @@ class Statuses extends ApiMethod
     /**
      * Favourited by
      *
-     * @param string $id
+     * View who favourited a given status
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Array of Account
      */
     public function favouritedBy(string $id): array
     {
@@ -113,9 +123,11 @@ class Statuses extends ApiMethod
     /**
      * Favourite
      *
-     * @param string $id
+     * Add a status to your favourites list
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Status
      */
     public function favourite(string $id): array
     {
@@ -128,9 +140,11 @@ class Statuses extends ApiMethod
     /**
      * Undo favourite
      *
-     * @param string $id
+     * Remove a status from your favourites list
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Status
      */
     public function unfavourite(string $id): array
     {
@@ -143,10 +157,12 @@ class Statuses extends ApiMethod
     /**
      * Boost
      *
-     * @param string $id
-     * @param string $visibility
+     * Reshare a status
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     * @param string $visibility any visibility except limited or direct (i.e. `public`, `unlisted`, `private`)
+     *
+     * @return array Status
      */
     public function reblog(string $id, string $visibility = 'public'): array
     {
@@ -161,9 +177,11 @@ class Statuses extends ApiMethod
     /**
      * Undo boost
      *
-     * @param string $id
+     * Undo a reshare of a status
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Status
      */
     public function unreblog(string $id): array
     {
@@ -176,9 +194,11 @@ class Statuses extends ApiMethod
     /**
      * Bookmark
      *
-     * @param string $id
+     * Privately bookmark a status
      *
-     * @return array
+     * @param string $id ID of the status in the database
+     *
+     * @return array Status
      */
     public function bookmark(string $id): array
     {
@@ -191,9 +211,11 @@ class Statuses extends ApiMethod
     /**
      * Undo bookmark
      *
-     * @param string $id
+     * Remove a status from your private bookmarks
      *
-     * @return array
+     * @param string $id ID of the status in the database
+     *
+     * @return array Status
      */
     public function unbookmark(string $id): array
     {
@@ -206,9 +228,11 @@ class Statuses extends ApiMethod
     /**
      * Mute conversation
      *
-     * @param string $id
+     * Do not receive notifications for the thread that this status is part of. Must be a thread in which you are a participant
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Status
      */
     public function mute(string $id): array
     {
@@ -221,9 +245,11 @@ class Statuses extends ApiMethod
     /**
      * Unmute conversation
      *
-     * @param string $id
+     * Start receiving notifications again for the thread that this status is part of
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Status
      */
     public function unmute(string $id): array
     {
@@ -236,9 +262,11 @@ class Statuses extends ApiMethod
     /**
      * Pin to profile
      *
-     * @param string $id
+     * Feature one of your own public statuses at the top of your profile
      *
-     * @return array
+     * @param string $id Local ID of a status in the database. The status should be public and authored by the authorized account
+     *
+     * @return array Status
      */
     public function pin(string $id): array
     {
@@ -251,9 +279,11 @@ class Statuses extends ApiMethod
     /**
      * Unpin to profile
      *
-     * @param string $id
+     * Unfeature a status from the top of your profile
      *
-     * @return array
+     * @param string $id Local ID of a status in the database
+     *
+     * @return array Status
      */
     public function unpin(string $id): array
     {

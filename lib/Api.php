@@ -246,6 +246,7 @@ class Api
      * @param array $errors
      *
      * @return array
+     * @throws Exception
      */
     private function request(string $method, string $endpoint, array $query, array $headers, $errors): array
     {
