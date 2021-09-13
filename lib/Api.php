@@ -5,7 +5,7 @@
  *
  * @link https://github.com/Fundevogel/php-mastodon
  * @license https://www.gnu.org/licenses/gpl-3.0.txt GPL v3
- * @version 0.2.1
+ * @version 0.3.0
  */
 
 namespace Fundevogel\Mastodon;
