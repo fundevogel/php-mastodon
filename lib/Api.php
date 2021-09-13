@@ -106,13 +106,13 @@ class Api
     /**
      * Constructor
      *
-     * @param string $instance Instance name
      * @param string $clientID Client ID, obtained during app registration
      * @param string $clientSecret Client secret, obtained during app registration
+     * @param string $instance Instance name
      *
      * @return void
      */
-    public function __contruct(string $instance = 'mastodon.social', string $clientID = '', string $clientSecret = '')
+    public function __construct(string $clientID = '', string $clientSecret = '', string $instance = 'mastodon.social')
     {
         # Set instance
         $this->instance = $instance;
