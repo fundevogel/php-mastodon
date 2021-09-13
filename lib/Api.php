@@ -104,27 +104,55 @@ class Api
 
 
     /**
+     * ID of currently active account
+     *
+     * @var string
+     */
+    private $id;
+
+
+    /**
      * Constructor
      *
-     * @param string $clientID Client ID, obtained during app registration
-     * @param string $clientSecret Client secret, obtained during app registration
      * @param string $instance Instance name
      *
      * @return void
      */
-    public function __construct(string $clientID = '', string $clientSecret = '', string $instance = 'mastodon.social')
+    public function __construct(string $instance = 'mastodon.social')
     {
         # Set instance
         $this->instance = $instance;
+    }
 
-        # Attempt to obtain an access token
-        $tokenEntity = $api->oauth()->token($clientID, $clientSecret);
 
-        # If successful ..
-        if (isset($tokenEntity['acccess_token'])) {
-            # .. store it for later
-            $this->accessToken = $tokenEntity['access_token'];
+    /**
+     * Logs in with an account
+     *
+     * @param string $clientID Client ID, obtained during app registration
+     * @param string $clientSecret Client secret, obtained during app registration
+     *
+     * @return bool Whether logging in was successful
+     */
+    public function logIn(string $clientID = '', string $clientSecret = ''): bool
+    {
+        # If access token not already defined ..
+        if (empty($this->accessToken)) {
+            # .. attempt to obtain one
+            $tokenEntity = $this->oauth()->token($clientID, $clientSecret);
+
+            # If successful ..
+            if (isset($tokenEntity['access_token'])) {
+                # .. store it for later
+                $this->accessToken = $tokenEntity['access_token'];
+            }
         }
+
+        # Verify authorization
+        if ($data = $this->accounts()->verifyCredentials()) {
+            $this->id = $data['id'];
+        }
+
+        return empty($this->id) === false;
     }
 
 
