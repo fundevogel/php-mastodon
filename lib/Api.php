@@ -84,7 +84,10 @@ class Api
      *
      * @var array
      */
-    public $headers = [];
+    public $headers = [
+        'Content-Type' => 'application/json; charset=utf-8',
+        'Accept'       => '*/*',
+    ];
 
 
     /**
@@ -301,7 +304,6 @@ class Api
         $headers = array_merge($this->headers, $headers);
 
         if (!empty($this->accessToken)) {
-            $headers['Accept'] = 'application/json';
             $headers['Authorization'] = "Bearer {$this->accessToken}";
         }
 
