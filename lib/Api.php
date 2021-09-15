@@ -10,48 +10,6 @@
 
 namespace Fundevogel\Mastodon;
 
-use Fundevogel\Mastodon\Methods\Apps\Apps;
-use Fundevogel\Mastodon\Methods\Apps\OAuth;
-
-use Fundevogel\Mastodon\Methods\Accounts\Accounts;
-use Fundevogel\Mastodon\Methods\Accounts\Bookmarks;
-use Fundevogel\Mastodon\Methods\Accounts\Favourites;
-use Fundevogel\Mastodon\Methods\Accounts\Blocks;
-use Fundevogel\Mastodon\Methods\Accounts\DomainBlocks;
-use Fundevogel\Mastodon\Methods\Accounts\Filters;
-use Fundevogel\Mastodon\Methods\Accounts\Reports;
-use Fundevogel\Mastodon\Methods\Accounts\FollowRequests;
-use Fundevogel\Mastodon\Methods\Accounts\Endorsements;
-use Fundevogel\Mastodon\Methods\Accounts\FeaturedTags;
-use Fundevogel\Mastodon\Methods\Accounts\Preferences;
-use Fundevogel\Mastodon\Methods\Accounts\Suggestions;
-
-use Fundevogel\Mastodon\Methods\Statuses\Statuses;
-use Fundevogel\Mastodon\Methods\Statuses\Media;
-use Fundevogel\Mastodon\Methods\Statuses\Polls;
-use Fundevogel\Mastodon\Methods\Statuses\ScheduledStatuses;
-
-use Fundevogel\Mastodon\Methods\Timelines\Timelines;
-use Fundevogel\Mastodon\Methods\Conversations\Conversations;
-use Fundevogel\Mastodon\Methods\Conversations\Lists;
-use Fundevogel\Mastodon\Methods\Conversations\Markers;
-
-use Fundevogel\Mastodon\Methods\Notifications\Notifications;
-
-use Fundevogel\Mastodon\Methods\Instance\Instance;
-use Fundevogel\Mastodon\Methods\Instance\Trends;
-use Fundevogel\Mastodon\Methods\Instance\Directory;
-use Fundevogel\Mastodon\Methods\Instance\CustomEmojis;
-
-use Fundevogel\Mastodon\Methods\Announcements\Announcements;
-
-use Fundevogel\Mastodon\Methods\Proofs\Proofs;
-
-use Fundevogel\Mastodon\Methods\OEmbed\OEmbed;
-
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\ClientException as GuzzleException;
-
 
 class Api
 {
@@ -282,7 +240,7 @@ class Api
     private function request(string $method, string $endpoint, array $query, array $headers, $errors): array
     {
         # TODO: Move client to __construct
-        $client = new GuzzleClient();
+        $client = new \GuzzleHttp\Client();
 
         # Build base URL
         # (1) Set API as default URL
@@ -329,7 +287,7 @@ class Api
                 throw new Exception($data['error']);
             }
 
-        } catch (GuzzleException $e) {}
+        } catch (\GuzzleHttp\Exception\ClientException $e) {}
 
         return [];
     }
@@ -343,300 +301,61 @@ class Api
      * 'Apps'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Apps\Apps;
-     */
-    public function apps(): \Fundevogel\Mastodon\Methods\Apps\Apps
-    {
-        return new Apps($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Apps\OAuth;
-     */
-    public function oauth(): \Fundevogel\Mastodon\Methods\Apps\OAuth
-    {
-        return new OAuth($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Apps;
 
 
     /**
      * 'Accounts'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Accounts;
-     */
-    public function accounts(): \Fundevogel\Mastodon\Methods\Accounts\Accounts
-    {
-        return new Accounts($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Bookmarks;
-     */
-    public function bookmarks(): \Fundevogel\Mastodon\Methods\Accounts\Bookmarks
-    {
-        return new Bookmarks($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Favourites;
-     */
-    public function favourites(): \Fundevogel\Mastodon\Methods\Accounts\Favourites
-    {
-        return new Favourites($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Mutes;
-     */
-    public function mutes(): \Fundevogel\Mastodon\Methods\Accounts\Mutes
-    {
-        return new Mutes($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Blocks;
-     */
-    public function blocks(): \Fundevogel\Mastodon\Methods\Accounts\Blocks
-    {
-        return new Blocks($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\DomainBlocks;
-     */
-    public function domainBlocks(): \Fundevogel\Mastodon\Methods\Accounts\DomainBlocks
-    {
-        return new DomainBlocks($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Filters;
-     */
-    public function filters(): \Fundevogel\Mastodon\Methods\Accounts\Filters
-    {
-        return new Filters($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Reports;
-     */
-    public function reports(): \Fundevogel\Mastodon\Methods\Accounts\Reports
-    {
-        return new Reports($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\FollowRequests;
-     */
-    public function followRequests(): \Fundevogel\Mastodon\Methods\Accounts\FollowRequests
-    {
-        return new FollowRequests($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Endorsements;
-     */
-    public function endorsements(): \Fundevogel\Mastodon\Methods\Accounts\Endorsements
-    {
-        return new Endorsements($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\FeaturedTags;
-     */
-    public function featuredTags(): \Fundevogel\Mastodon\Methods\Accounts\FeaturedTags
-    {
-        return new FeaturedTags($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Preferences;
-     */
-    public function preferences(): \Fundevogel\Mastodon\Methods\Accounts\Preferences
-    {
-        return new Preferences($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Accounts\Suggestions;
-     */
-    public function suggestions(): \Fundevogel\Mastodon\Methods\Accounts\Suggestions
-    {
-        return new Suggestions($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Accounts;
 
 
     /**
      * 'Statuses'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Statuses\Statuses;
-     */
-    public function statuses(): \Fundevogel\Mastodon\Methods\Statuses\Statuses
-    {
-        return new Statuses($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Statuses\Media;
-     */
-    public function media(): \Fundevogel\Mastodon\Methods\Statuses\Media
-    {
-        return new Media($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Statuses\Polls;
-     */
-    public function polls(): \Fundevogel\Mastodon\Methods\Statuses\Polls
-    {
-        return new Polls($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Statuses\ScheduledStatuses;
-     */
-    public function scheduledStatuses(): \Fundevogel\Mastodon\Methods\Statuses\ScheduledStatuses
-    {
-        return new ScheduledStatuses($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Statuses;
 
 
     /**
      * 'Timelines'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Timelines\Timelines;
-     */
-    public function timelines(): \Fundevogel\Mastodon\Methods\Timelines\Timelines
-    {
-        return new Timelines($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Timelines;
 
 
     /**
-     * @return \Fundevogel\Mastodon\Methods\Timelines\Conversations;
+     * 'Notifications'
      */
-    public function conversations(): \Fundevogel\Mastodon\Methods\Timelines\Conversations
-    {
-        return new Conversations($this);
-    }
 
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Timelines\Lists;
-     */
-    public function lists(): \Fundevogel\Mastodon\Methods\Timelines\Lists
-    {
-        return new Lists($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Timelines\Markers;
-     */
-    public function markers(): \Fundevogel\Mastodon\Methods\Timelines\Markers
-    {
-        return new Markers($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Notifications;
 
 
     /**
      * 'Instance'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Instance\Instance;
-     */
-    public function instance(): \Fundevogel\Mastodon\Methods\Instance\Instance
-    {
-        return new Instance($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Instance\Trends;
-     */
-    public function trends(): \Fundevogel\Mastodon\Methods\Instance\Trends
-    {
-        return new Trends($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Instance\Directory;
-     */
-    public function directory(): \Fundevogel\Mastodon\Methods\Instance\Directory
-    {
-        return new Directory($this);
-    }
-
-
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Instance\CustomEmojis;
-     */
-    public function customEmojis(): \Fundevogel\Mastodon\Methods\Instance\CustomEmojis
-    {
-        return new CustomEmojis($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Instance;
 
 
     /**
      * 'Announcements'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Announcements\Announcements;
-     */
-    public function announcements(): \Fundevogel\Mastodon\Methods\Announcements\Announcements
-    {
-        return new Announcements($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Announcements;
 
 
     /**
      * 'Proofs'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\Proofs\Proofs;
-     */
-    public function proofs(): \Fundevogel\Mastodon\Methods\Proofs\Proofs
-    {
-        return new Proofs($this);
-    }
+    use \Fundevogel\Mastodon\Traits\Proofs;
 
 
     /**
      * 'OEmbed'
      */
 
-    /**
-     * @return \Fundevogel\Mastodon\Methods\OEmbed\OEmbed;
-     */
-    public function oembed(): \Fundevogel\Mastodon\Methods\OEmbed\OEmbed
-    {
-        return new OEmbed($this);
-    }
+    use \Fundevogel\Mastodon\Traits\OEmbed;
 }

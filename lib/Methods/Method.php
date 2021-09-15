@@ -2,8 +2,6 @@
 
 namespace Fundevogel\Mastodon\Methods;
 
-use Fundevogel\Mastodon\Api;
-
 
 /**
  * Class Method
@@ -23,7 +21,7 @@ abstract Class Method
      */
     public function __construct(\Fundevogel\Mastodon\Api $api)
     {
-        # Supply access to API
+        # Relay API access
         $this->api = $api;
     }
 }
