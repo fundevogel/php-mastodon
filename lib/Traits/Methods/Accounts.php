@@ -1,6 +1,6 @@
 <?php
 
-namespace Fundevogel\Mastodon\Traits;
+namespace Fundevogel\Mastodon\Traits\Methods;
 
 
 trait Accounts
@@ -28,7 +28,7 @@ trait Accounts
      */
     public function favourites(): \Fundevogel\Mastodon\Methods\Accounts\Favourites
     {
-        return new Favourites($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Favourites($this);
     }
 
 
@@ -37,7 +37,7 @@ trait Accounts
      */
     public function mutes(): \Fundevogel\Mastodon\Methods\Accounts\Mutes
     {
-        return new Mutes($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Mutes($this);
     }
 
 
@@ -46,7 +46,7 @@ trait Accounts
      */
     public function blocks(): \Fundevogel\Mastodon\Methods\Accounts\Blocks
     {
-        return new Blocks($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Blocks($this);
     }
 
 
@@ -55,7 +55,7 @@ trait Accounts
      */
     public function domainBlocks(): \Fundevogel\Mastodon\Methods\Accounts\DomainBlocks
     {
-        return new DomainBlocks($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\DomainBlocks($this);
     }
 
 
@@ -64,7 +64,7 @@ trait Accounts
      */
     public function filters(): \Fundevogel\Mastodon\Methods\Accounts\Filters
     {
-        return new Filters($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Filters($this);
     }
 
 
@@ -73,7 +73,7 @@ trait Accounts
      */
     public function reports(): \Fundevogel\Mastodon\Methods\Accounts\Reports
     {
-        return new Reports($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Reports($this);
     }
 
 
@@ -82,7 +82,7 @@ trait Accounts
      */
     public function followRequests(): \Fundevogel\Mastodon\Methods\Accounts\FollowRequests
     {
-        return new FollowRequests($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\FollowRequests($this);
     }
 
 
@@ -91,7 +91,7 @@ trait Accounts
      */
     public function endorsements(): \Fundevogel\Mastodon\Methods\Accounts\Endorsements
     {
-        return new Endorsements($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Endorsements($this);
     }
 
 
@@ -100,7 +100,7 @@ trait Accounts
      */
     public function featuredTags(): \Fundevogel\Mastodon\Methods\Accounts\FeaturedTags
     {
-        return new FeaturedTags($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\FeaturedTags($this);
     }
 
 
@@ -109,7 +109,7 @@ trait Accounts
      */
     public function preferences(): \Fundevogel\Mastodon\Methods\Accounts\Preferences
     {
-        return new Preferences($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Preferences($this);
     }
 
 
@@ -118,6 +118,6 @@ trait Accounts
      */
     public function suggestions(): \Fundevogel\Mastodon\Methods\Accounts\Suggestions
     {
-        return new Suggestions($this);
+        return new \Fundevogel\Mastodon\Methods\Accounts\Suggestions($this);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fundevogel\Mastodon\Traits;
+namespace Fundevogel\Mastodon\Traits\Methods;
 
 
 trait Statuses

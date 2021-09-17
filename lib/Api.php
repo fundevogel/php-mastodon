@@ -431,61 +431,61 @@ class Api
      * 'Apps'
      */
 
-    use \Fundevogel\Mastodon\Traits\Apps;
+    use \Fundevogel\Mastodon\Traits\Methods\Apps;
 
 
     /**
      * 'Accounts'
      */
 
-    use \Fundevogel\Mastodon\Traits\Accounts;
+    use \Fundevogel\Mastodon\Traits\Methods\Accounts;
 
 
     /**
      * 'Statuses'
      */
 
-    use \Fundevogel\Mastodon\Traits\Statuses;
+    use \Fundevogel\Mastodon\Traits\Methods\Statuses;
 
 
     /**
      * 'Timelines'
      */
 
-    use \Fundevogel\Mastodon\Traits\Timelines;
+    use \Fundevogel\Mastodon\Traits\Methods\Timelines;
 
 
     /**
      * 'Notifications'
      */
 
-    use \Fundevogel\Mastodon\Traits\Notifications;
+    use \Fundevogel\Mastodon\Traits\Methods\Notifications;
 
 
     /**
      * 'Instance'
      */
 
-    use \Fundevogel\Mastodon\Traits\Instance;
+    use \Fundevogel\Mastodon\Traits\Methods\Instance;
 
 
     /**
      * 'Announcements'
      */
 
-    use \Fundevogel\Mastodon\Traits\Announcements;
+    use \Fundevogel\Mastodon\Traits\Methods\Announcements;
 
 
     /**
      * 'Proofs'
      */
 
-    use \Fundevogel\Mastodon\Traits\Proofs;
+    use \Fundevogel\Mastodon\Traits\Methods\Proofs;
 
 
     /**
      * 'OEmbed'
      */
 
-    use \Fundevogel\Mastodon\Traits\OEmbed;
+    use \Fundevogel\Mastodon\Traits\Methods\OEmbed;
 }
