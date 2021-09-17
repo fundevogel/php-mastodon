@@ -3,7 +3,7 @@
     "description": "A small PHP library for interacting with Mastodon's REST API.",
     "type": "library",
     "license": "GPL-3.0",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "keywords": ["mastodon", "oauth", "api", "rest", "social"],
     "homepage": "https://fundevogel.de",
     "scripts": {
