@@ -57,11 +57,43 @@ class Api
 
 
     /**
+     * Name of application
+     *
+     * @var string
+     */
+    public $appName = 'Test App';
+
+
+    /**
+     * Website of application
+     *
+     * @var string
+     */
+    public $appURL = '';
+
+
+    /**
+     * Client key of application
+     *
+     * @var string
+     */
+    public $clientKey = '';
+
+
+    /**
+     * Client secret of application
+     *
+     * @var string
+     */
+    public $clientSecret = '';
+
+
+    /**
      * Access token of application
      *
      * @var string
      */
-    public $accessToken;
+    public $accessToken = '';
 
 
     /**
@@ -89,46 +121,70 @@ class Api
     /**
      * Logs in with an account
      *
-     * @param string $clientID Client ID, obtained during app registration
-     * @param string $clientSecret Client secret, obtained during app registration
+     * @param string $authCode
      *
      * @return bool Whether logging in was successful
      */
-    public function logIn(string $clientID = '', string $clientSecret = ''): bool
+    public function logIn(string $authCode = ''): bool
     {
-        # If access token not already defined ..
-        if (empty($this->accessToken)) {
-            # .. attempt to obtain one
-            $tokenEntity = $this->oauth()->token($clientID, $clientSecret);
+        # Attempt login ..
+        try {
+            # Authorize with API, receiving account-level or application-level access
+            # Check for access token already provided ..
+            if (empty($this->accessToken)) {
+                # .. otherwise, see if necessary ingredients already provided ..
+                if (empty($this->clientKey) && empty($this->clientSecret)) {
+                    # .. otherwise, create an application to get them ..
+                    if ($applicationEntity = $this->apps()->create($this->appName, 'urn:ietf:wg:oauth:2.0:oob', implode(' ', $this->scope), $this->appURL)) {
+                        # .. and store them for later use
+                        $this->clientKey = $applicationEntity['client_id'];
+                        $this->clientSecret = $applicationEntity['client_secret'];
+                    }
+                }
 
-            # If successful ..
-            if (isset($tokenEntity['access_token'])) {
-                # .. store it for later
-                $this->accessToken = $tokenEntity['access_token'];
+                # Fallback to application-level access
+                $grantType = 'client_credentials';
+
+                # Check if authorization token was provided, and if so ..
+                if (!empty($authCode)) {
+                    # .. attempt to get account-level access
+                    $grantType = 'authorization_code';
+                }
+
+                # Obtain access token
+                $tokenEntity = $this->oauth()->token($this->clientKey, $this->clientSecret, $grantType, $authCode);
+
+                # If successful ..
+                if (isset($tokenEntity['access_token'])) {
+                    # .. store it for later
+                    $this->accessToken = $tokenEntity['access_token'];
+                }
             }
-        }
 
-        # Verify authorization
-        if ($data = $this->accounts()->verifyCredentials()) {
-            $this->id = $data['id'];
-        }
+            # If we got account-level access ..
+            if ($data = $this->accounts()->verifyCredentials()) {
+                # .. attempt to obtain ID for current account
+                $this->id = $data['id'];
+            }
 
-        return empty($this->id) === false;
+            return true;
+
+        # .. while errors of any kind lead to an unsuccessful call
+        } catch (\Exception $e) {}
+
+        return false;
     }
 
 
     /**
      * Logs out of an account
      *
-     * @param string $clientID Client ID, obtained during app registration
-     * @param string $clientSecret Client secret, obtained during app registration
-     *
      * @return bool Whether logging out was successful
      */
-    public function logOut(string $clientID = '', string $clientSecret = ''): bool
+    public function logOut(): bool
     {
         # Revoke access token
-        $tokenEntity = $this->oauth()->revoke($clientID, $clientSecret, $this->accessToken);
+        $tokenEntity = $this->oauth()->revoke($this->clientKey, $this->clientSecret, $this->accessToken);
 
         if (empty($tokenEntity)) {
             # Reset relevant data
