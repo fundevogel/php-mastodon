@@ -342,11 +342,13 @@ class Api
             # Send request
             $response = $client->request($method, $url, ['headers' => $headers]);
 
-            if ($response->getStatusCode() == 200) {
-                return json_decode($response->getBody(), true);
+            if (empty($data = json_decode($response->getBody(), true))) {
+                return [];
             }
 
-            $data = json_decode($response->getBody(), true);
+            if ($response->getStatusCode() == 200) {
+                return $data;
+            }
 
             # Check for error message
             # TODO: Add custom `Exception`s
@@ -357,7 +359,7 @@ class Api
                 # 404 - Not Found
                 # 422 - Unprocessable Entity
                 # 500
-                throw new Exception($data['error']);
+                throw new \Exception($data['error']);
             }
 
         } catch (\GuzzleHttp\Exception\ClientException $e) {}
