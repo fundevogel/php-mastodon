@@ -14,6 +14,14 @@ namespace Fundevogel\Mastodon;
 class Api
 {
     /**
+     * HTTP handler
+     *
+     * @var \GuzzleHttp\Client
+     */
+    private $client;
+
+
+    /**
      * Mastodon instance
      *
      * @var string
@@ -113,6 +121,9 @@ class Api
      */
     public function __construct(string $instance = 'mastodon.social')
     {
+        # Initialize HTTP handler
+        $this->client = new \GuzzleHttp\Client();
+
         # Set instance
         $this->instance = $instance;
     }
@@ -324,9 +335,6 @@ class Api
      */
     private function request(string $method, string $endpoint, array $query, array $headers, $errors): array
     {
-        # TODO: Move client to __construct
-        $client = new \GuzzleHttp\Client();
-
         # Build request
         # (1) Determine base URL
         $url = $this->buildURL($endpoint, $query);
@@ -340,7 +348,7 @@ class Api
 
         try {
             # Send request
-            $response = $client->request($method, $url, ['headers' => $headers]);
+            $response = $this->client->request($method, $url, ['headers' => $headers]);
 
             if (empty($data = json_decode($response->getBody(), true))) {
                 return [];
@@ -395,8 +403,8 @@ class Api
         # Prepare result
         $result = '';
 
-        # Determine redirect URL
-        (new \GuzzleHttp\Client())->get($this->buildURL('oauth/authorize', $query), [
+        # Determine URL for obtaining an authorization code
+        $this->client->get($this->buildURL('oauth/authorize', $query), [
             'on_stats' => function (\GuzzleHttp\TransferStats $stats) use (&$result) {
                 $result = $stats->getEffectiveUri();
             },
