@@ -128,7 +128,7 @@ class Accounts extends Method
     {
         # Fallback to current account
         if (empty($id)) {
-            $id = $this->api->id;
+            $id = $this->api->id();
         }
 
         $endpoint = "{$this->endpoint}/{$id}";
@@ -153,7 +153,7 @@ class Accounts extends Method
     {
         # Fallback to current account
         if (empty($id)) {
-            $id = $this->api->id;
+            $id = $this->api->id();
         }
 
         $endpoint = "{$this->endpoint}/{$id}/statuses";
@@ -182,7 +182,7 @@ class Accounts extends Method
     {
         # Fallback to current account
         if (empty($id)) {
-            $id = $this->api->id;
+            $id = $this->api->id();
         }
 
         $endpoint = "{$this->endpoint}/{$id}/followers";
@@ -211,7 +211,7 @@ class Accounts extends Method
     {
         # Fallback to current account
         if (empty($id)) {
-            $id = $this->api->id;
+            $id = $this->api->id();
         }
 
         $endpoint = "{$this->endpoint}/{$id}/following";
@@ -237,7 +237,7 @@ class Accounts extends Method
     {
         # Fallback to current account
         if (empty($id)) {
-            $id = $this->api->id;
+            $id = $this->api->id();
         }
 
         $endpoint = "{$this->endpoint}/{$id}/featured_tags";
@@ -259,7 +259,7 @@ class Accounts extends Method
     {
         # Fallback to current account
         if (empty($id)) {
-            $id = $this->api->id;
+            $id = $this->api->id();
         }
 
         $endpoint = "{$this->endpoint}/{$id}/lists";
@@ -279,7 +279,7 @@ class Accounts extends Method
     {
         # Fallback to current account
         if (empty($id)) {
-            $id = $this->api->id;
+            $id = $this->api->id();
         }
 
         $endpoint = "{$this->endpoint}/{$id}/identity_proofs";

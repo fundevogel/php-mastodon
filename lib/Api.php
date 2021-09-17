@@ -109,7 +109,7 @@ class Api
      *
      * @var string
      */
-    public $id;
+    private $id = '';
 
 
     /**
@@ -411,6 +411,15 @@ class Api
         ]);
 
         return $result;
+    }
+
+
+    /**
+     * Get current account ID
+     */
+    public function id(): string
+    {
+        return $this->id;
     }
 
 
