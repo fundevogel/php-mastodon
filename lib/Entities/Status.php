@@ -9,6 +9,12 @@ namespace Fundevogel\Mastodon\Entities;
 class Status
 {
     /**
+     * Enable media downloads
+     */
+    use \Fundevogel\Mastodon\Traits\Downloader;
+
+
+    /**
      * Raw data
      *
      * @var array
