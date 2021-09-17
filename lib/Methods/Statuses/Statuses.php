@@ -3,6 +3,7 @@
 namespace Fundevogel\Mastodon\Methods\Statuses;
 
 use Fundevogel\Mastodon\Methods\Method;
+use Fundevogel\Mastodon\Entities\Status;
 
 
 /**
@@ -42,13 +43,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function get(string $id): array
+    public function get(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->get($endpoint);
+        return new Status($this->api->get($endpoint));
     }
 
 

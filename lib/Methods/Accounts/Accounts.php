@@ -3,6 +3,7 @@
 namespace Fundevogel\Mastodon\Methods\Accounts;
 
 use Fundevogel\Mastodon\Methods\Method;
+use Fundevogel\Mastodon\Entities\Status;
 
 
 /**
@@ -158,11 +159,14 @@ class Accounts extends Method
 
         $endpoint = "{$this->endpoint}/{$id}/statuses";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($status) {
+            return new Status($status);
+
+        }, $this->api->get($endpoint, [
            'min_id'          => $minID,
            'exclude_reblogs' => $excludeReblogs,
            'tagged'          => $tagged,
-        ]);
+        ]));
     }
 
 
