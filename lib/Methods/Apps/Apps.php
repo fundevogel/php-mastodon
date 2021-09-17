@@ -25,10 +25,10 @@ class Apps extends Method
      *
      * Create a new application to obtain OAuth2 credentials
      *
-     * @param string $clientName
-     * @param string $redirectURIs
-     * @param string $scopes
-     * @param string $website
+     * @param string $clientName A name for your application
+     * @param string $redirectURIs Where the user should be redirected after authorization. To display the authorization code to the user instead of redirecting to a web page, use `urn:ietf:wg:oauth:2.0:oob` in this parameter
+     * @param string $scopes Space separated list of scopes
+     * @param string $website A URL to the homepage of your app
      *
      * @return array Application, with `client_id` and `client_secret`
      */
