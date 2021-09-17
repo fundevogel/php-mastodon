@@ -202,6 +202,35 @@ class Api
 
 
     /**
+     * Builds URL for API endpoint
+     *
+     * @param string $endpoint
+     * @param array $query
+     *
+     * @return string
+     */
+    private function buildURL(string $endpoint, array $query): string
+    {
+        # Build base URL from given components
+        # (1) Set API as default URL
+        $url = "https://{$this->instance}/{$this->namespace}/{$this->version}/{$endpoint}";
+
+        # (2) Check for OAuth & other non-compliant endpoints ..
+        if (strpos($endpoint, 'oauth/') === 0 || strpos($endpoint, 'api/') === 0) {
+            # .. being made directly from base URL
+            $url = "https://{$this->instance}/{$endpoint}";
+        }
+
+        # Add query parameters
+        if (!empty($query)) {
+            $url .= '?' . http_build_query($query);
+        }
+
+        return $url;
+    }
+
+
+    /**
      * Sends GET request
      *
      * @param string $endpoint
@@ -298,23 +327,11 @@ class Api
         # TODO: Move client to __construct
         $client = new \GuzzleHttp\Client();
 
-        # Build base URL
-        # (1) Set API as default URL
-        $url = "https://{$this->instance}/{$this->namespace}/{$this->version}/{$endpoint}";
+        # Build request
+        # (1) Determine base URL
+        $url = $this->buildURL($endpoint, $query);
 
-        # (2) Check for OAuth & other non-compliant endpoints ..
-        if (strpos($endpoint, 'oauth/') === 0 || strpos($endpoint, 'api/') === 0) {
-            # .. being made directly from base URL
-            $url = "https://{$this->instance}/{$endpoint}";
-        }
-
-        # Prepare request, using
-        # (1) .. query parameters
-        if (!empty($query)) {
-            $url .= '?' . http_build_query($query);
-        }
-
-        # (2) .. HTTP headers
+        # (2) Determine HTTP headers
         $headers = array_merge($this->headers, $headers);
 
         if (!empty($this->accessToken)) {
@@ -346,6 +363,44 @@ class Api
         } catch (\GuzzleHttp\Exception\ClientException $e) {}
 
         return [];
+    }
+
+
+    /**
+     * Determines URL for receiving an authorization code
+     *
+     * @param string $clientKey Client key of application
+     *
+     * @return string
+     */
+    public function getAuthUrl(string $clientKey = ''): string
+    {
+        # Build query parameters
+        # (1) Determine client ID
+        if (empty($clientKey)) {
+            $clientKey = $this->clientKey;
+        }
+
+        # (2) Put everything together
+        $query = [
+            'client_id' => $clientKey,
+            'scope'         => implode(' ', $this->scope),
+            'redirect_uri'  => 'urn:ietf:wg:oauth:2.0:oob',
+            'force_login'   => false,
+            'response_type' => 'code',
+        ];
+
+        # Prepare result
+        $result = '';
+
+        # Determine redirect URL
+        (new \GuzzleHttp\Client())->get($this->buildURL('oauth/authorize', $query), [
+            'on_stats' => function (\GuzzleHttp\TransferStats $stats) use (&$result) {
+                $result = $stats->getEffectiveUri();
+            },
+        ]);
+
+        return $result;
     }
 
 
