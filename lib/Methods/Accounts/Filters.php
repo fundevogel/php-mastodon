@@ -23,13 +23,13 @@ class Filters extends Method
     /**
      * View all filters
      *
-     * @return array Filter
+     * @return \Fundevogel\Mastodon\Entities\Filter Filter
      */
-    public function all(): array
+    public function all(): \Fundevogel\Mastodon\Entities\Filter
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Filter($this->api->get($endpoint));
     }
 
 
@@ -38,13 +38,13 @@ class Filters extends Method
      *
      * @param string $id
      *
-     * @return array Filter
+     * @return \Fundevogel\Mastodon\Entities\Filter Filter
      */
-    public function get(string $id): array
+    public function get(string $id): \Fundevogel\Mastodon\Entities\Filter
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Filter($this->api->get($endpoint));
     }
 
 
@@ -57,19 +57,19 @@ class Filters extends Method
      * @param bool $wholeWord Consider word boundaries?
      * @param int $expiresIn Number of seconds from now the filter should expire. Otherwise, null for a filter that doesn't expire
      *
-     * @return array Filter
+     * @return \Fundevogel\Mastodon\Entities\Filter Filter
      */
-    public function create(string $phrase, array $context, bool $irreversible = false, bool $wholeWord = true, int $expiresIn = 0): array
+    public function create(string $phrase, array $context, bool $irreversible = false, bool $wholeWord = true, int $expiresIn = 0): \Fundevogel\Mastodon\Entities\Filter
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\Filter($this->api->post($endpoint, [
             'phrase'       => $phrase,
             'context'      => $context,
             'irreversible' => $irreversible,
             'whole_word'   => $wholeWord,
             'expires_in'   => $expiresIn,
-        ]);
+        ]));
     }
 
 
@@ -83,13 +83,13 @@ class Filters extends Method
      * @param bool $wholeWord Consider word boundaries?
      * @param int $expiresIn Number of seconds from now the filter should expire. Otherwise, null for a filter that doesn't expire
      *
-     * @return array Filter
+     * @return \Fundevogel\Mastodon\Entities\Filter Filter
      */
-    public function update(string $id, string $phrase, array $context, bool $irreversible, bool $wholeWord, int $expiresIn): array
+    public function update(string $id, string $phrase, array $context, bool $irreversible, bool $wholeWord, int $expiresIn): \Fundevogel\Mastodon\Entities\Filter
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->put($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Filter($this->api->put($endpoint));
     }
 
 
@@ -98,12 +98,12 @@ class Filters extends Method
      *
      * @param string $id ID of the filter in the database
      *
-     * @return array Filter
+     * @return \Fundevogel\Mastodon\Entities\Filter Filter
      */
-    public function remove(string $id): array
+    public function remove(string $id): \Fundevogel\Mastodon\Entities\Filter
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->delete($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Filter($this->api->delete($endpoint));
     }
 }

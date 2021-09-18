@@ -21,26 +21,34 @@ class Suggestions extends Method
 
 
     /**
-     * Gets follow suggestions
+     * Follow suggestions
      *
-     * @param int $limit
-     * @return array
+     * Accounts the user has had past positive interactions with, but is not yet following
+     *
+     * @param int $limit Maximum number of results to return
+     *
+     * @return array Array of Account
      */
     public function get(int $limit = 40): array
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Account($data);
+        }, $this->api->get($endpoint, [
             'limit' => $limit,
-        ]);
+        ]));
     }
 
 
     /**
-     * Removes a suggestion
+     * Remove a suggestion
      *
-     * @param string $id
-     * @return array
+     * Remove an account from follow suggestions
+     *
+     * @param string $id ID of the account in the database to be removed from suggestions
+     *
+     * @return array n/a
      */
     public function remove(string $id): array
     {

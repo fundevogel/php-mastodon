@@ -29,7 +29,9 @@ class FeaturedTags extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\FeaturedTag($data);
+        }, $this->api->get($endpoint));
     }
 
 
@@ -38,15 +40,15 @@ class FeaturedTags extends Method
      *
      * @param string $name The hashtag to be featured
      *
-     * @return array FeaturedTag
+     * @return \Fundevogel\Mastodon\Entities\FeaturedTag FeaturedTag
      */
-    public function feature(string $name): array
+    public function feature(string $name): \Fundevogel\Mastodon\Entities\FeaturedTag
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\FeaturedTag($this->api->post($endpoint, [
             'name' => $name,
-        ]);
+        ]));
     }
 
 
@@ -76,6 +78,8 @@ class FeaturedTags extends Method
     {
         $endpoint = "{$this->endpoint}/suggestions";
 
-        return $this->api->get($endpoint);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Tag($data);
+        }, $this->api->get($endpoint));
     }
 }

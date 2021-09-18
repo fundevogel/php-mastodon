@@ -33,8 +33,10 @@ class Trends extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Tag($data);
+        }, $this->api->get($endpoint, [
             'limit' => $limit,
-        ]);
+        ]));
     }
 }

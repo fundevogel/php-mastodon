@@ -21,23 +21,24 @@ class Reports extends Method
 
 
     /**
-     * Files a report
+     * File a report
      *
-     * @param string $accountID
-     * @param array $statusIDs
-     * @param string $comment
-     * @param bool $forward
-     * @return array
+     * @param string $accountID ID of the account to report
+     * @param array $statusIDs Array of Statuses to attach to the report, for context
+     * @param string $comment Reason for the report (default max 1000 characters)
+     * @param bool $forward If the account is remote, should the report be forwarded to the remote admin?
+     *
+     * @return \Fundevogel\Mastodon\Entities\Report Report
      */
-    public function file(string $accountID = '', array $statusIDs = [], string $comment = '', bool $forward = true): array
+    public function file(string $accountID = '', array $statusIDs = [], string $comment = '', bool $forward = true): \Fundevogel\Mastodon\Entities\Report
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\Report($this->api->post($endpoint, [
             'account_id' => $accountID,
             'status_ids' => $statusIDs,
             'comment'    => $comment,
             'forward'    => $forward,
-        ]);
+        ]));
     }
 }

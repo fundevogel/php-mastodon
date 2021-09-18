@@ -49,7 +49,7 @@ class Statuses extends Method
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return new Status($this->api->get($endpoint));
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->get($endpoint));
     }
 
 
@@ -60,13 +60,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database. Must be owned by authenticated account
      *
-     * @return array Status with source `text` and `media_attachments` or `poll`
+     * @return \Fundevogel\Mastodon\Entities\Status Status with source `text` and `media_attachments` or `poll`
      */
-    public function delete(string $id): array
+    public function delete(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->delete($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->delete($endpoint));
     }
 
 
@@ -77,13 +77,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Context
+     * @return \Fundevogel\Mastodon\Entities\Context Context
      */
-    public function context(string $id): array
+    public function context(string $id): \Fundevogel\Mastodon\Entities\Context
     {
         $endpoint = "{$this->endpoint}/{$id}/context";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Context($this->api->get($endpoint));
     }
 
 
@@ -100,7 +100,9 @@ class Statuses extends Method
     {
         $endpoint = "{$this->endpoint}/{$id}/reblogged_by";
 
-        return $this->api->get($endpoint);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Account($data);
+        }, $this->api->get($endpoint));
     }
 
 
@@ -117,7 +119,9 @@ class Statuses extends Method
     {
         $endpoint = "{$this->endpoint}/{$id}/favourited_by";
 
-        return $this->api->get($endpoint);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Account($data);
+        }, $this->api->get($endpoint));
     }
 
 
@@ -128,13 +132,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function favourite(string $id): array
+    public function favourite(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/favourite";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -145,13 +149,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function unfavourite(string $id): array
+    public function unfavourite(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/unfavourite";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -163,15 +167,15 @@ class Statuses extends Method
      * @param string $id Local ID of a status in the database
      * @param string $visibility any visibility except limited or direct (i.e. `public`, `unlisted`, `private`)
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function reblog(string $id, string $visibility = 'public'): array
+    public function reblog(string $id, string $visibility = 'public'): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/reblog";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint, [
             'visibility' => $visibility,
-        ]);
+        ]));
     }
 
 
@@ -182,13 +186,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function unreblog(string $id): array
+    public function unreblog(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/unreblog";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -199,13 +203,13 @@ class Statuses extends Method
      *
      * @param string $id ID of the status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function bookmark(string $id): array
+    public function bookmark(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/bookmark";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -216,13 +220,13 @@ class Statuses extends Method
      *
      * @param string $id ID of the status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function unbookmark(string $id): array
+    public function unbookmark(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/unbookmark";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -233,13 +237,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function mute(string $id): array
+    public function mute(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/mute";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -250,13 +254,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function unmute(string $id): array
+    public function unmute(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/unmute";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -267,13 +271,13 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database. The status should be public and authored by the authorized account
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function pin(string $id): array
+    public function pin(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/pin";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 
 
@@ -284,12 +288,12 @@ class Statuses extends Method
      *
      * @param string $id Local ID of a status in the database
      *
-     * @return array Status
+     * @return \Fundevogel\Mastodon\Entities\Status Status
      */
-    public function unpin(string $id): array
+    public function unpin(string $id): \Fundevogel\Mastodon\Entities\Status
     {
         $endpoint = "{$this->endpoint}/{$id}/unpin";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Status($this->api->post($endpoint));
     }
 }

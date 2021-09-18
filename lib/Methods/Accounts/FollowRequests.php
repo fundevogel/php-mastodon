@@ -31,9 +31,11 @@ class FollowRequests extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
-            'limit'    => $limit,
-        ]);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Account($data);
+        }, $this->api->get($endpoint, [
+            'limit' => $limit,
+        ]));
     }
 
 
@@ -42,13 +44,13 @@ class FollowRequests extends Method
      *
      * @param string $id ID of the account in the database
      *
-     * @return array Relationship
+     * @return \Fundevogel\Mastodon\Entities\Relationship Relationship
      */
-    public function authorize(string $id): array
+    public function authorize(string $id): \Fundevogel\Mastodon\Entities\Relationship
     {
         $endpoint = "{$this->endpoint}/{$id}/authorize";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Relationship($this->api->post($endpoint));
     }
 
 
@@ -57,12 +59,12 @@ class FollowRequests extends Method
      *
      * @param string $id ID of the account in the database
      *
-     * @return array Relationship
+     * @return \Fundevogel\Mastodon\Entities\Relationship Relationship
      */
-    public function reject(string $id): array
+    public function reject(string $id): \Fundevogel\Mastodon\Entities\Relationship
     {
         $endpoint = "{$this->endpoint}/{$id}/reject";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Relationship($this->api->post($endpoint));
     }
 }

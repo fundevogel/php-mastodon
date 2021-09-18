@@ -31,6 +31,8 @@ class CustomEmojis extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Emoji($data);
+        }, $this->api->get($endpoint));
     }
 }

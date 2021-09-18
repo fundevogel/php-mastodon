@@ -30,18 +30,18 @@ class Apps extends Method
      * @param string $scopes Space separated list of scopes
      * @param string $website A URL to the homepage of your app
      *
-     * @return array Application, with `client_id` and `client_secret`
+     * @return \Fundevogel\Mastodon\Entities\Application Application, with `client_id` and `client_secret`
      */
-    public function create(string $clientName, string $redirectURIs, string $scopes = 'read', string $website = ''): array
+    public function create(string $clientName, string $redirectURIs, string $scopes = 'read', string $website = ''): \Fundevogel\Mastodon\Entities\Application
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\Application($this->api->post($endpoint, [
             'client_name'   => $clientName,
             'redirect_uris' => $redirectURIs,
             'scopes'        => $scopes,
             'website'       => $website,
-        ]);
+        ]));
     }
 
 
@@ -55,12 +55,12 @@ class Apps extends Method
      * @param string $scopes
      * @param string $website
      *
-     * @return array Application
+     * @return \Fundevogel\Mastodon\Entities\Application Application
      */
-    public function verifyCredentials(): array
+    public function verifyCredentials(): \Fundevogel\Mastodon\Entities\Application
     {
         $endpoint = "{$this->endpoint}/verify_credentials";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Application($this->api->post($endpoint));
     }
 }

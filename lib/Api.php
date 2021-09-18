@@ -148,8 +148,8 @@ class Api
                     # .. otherwise, create an application to get them ..
                     if ($applicationEntity = $this->apps()->create($this->appName, 'urn:ietf:wg:oauth:2.0:oob', implode(' ', $this->scope), $this->appURL)) {
                         # .. and store them for later use
-                        $this->clientKey = $applicationEntity['client_id'];
-                        $this->clientSecret = $applicationEntity['client_secret'];
+                        $this->clientKey = $applicationEntity->data['client_id'];
+                        $this->clientSecret = $applicationEntity->data['client_secret'];
                     }
                 }
 
@@ -166,16 +166,16 @@ class Api
                 $tokenEntity = $this->oauth()->token($this->clientKey, $this->clientSecret, $grantType, $authCode);
 
                 # If successful ..
-                if (isset($tokenEntity['access_token'])) {
+                if (isset($tokenEntity->data['access_token'])) {
                     # .. store it for later
-                    $this->accessToken = $tokenEntity['access_token'];
+                    $this->accessToken = $tokenEntity->data['access_token'];
                 }
             }
 
             # If we got account-level access ..
             if ($data = $this->accounts()->verifyCredentials()) {
                 # .. attempt to obtain ID for current account
-                $this->id = $data['id'];
+                $this->id = $data->data['id'];
             }
 
             return true;

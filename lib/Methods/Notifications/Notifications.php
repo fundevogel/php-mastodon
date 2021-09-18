@@ -42,14 +42,16 @@ class Notifications extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Notification($data);
+        }, $this->api->get($endpoint, [
             'max_id'        => $maxID,
             'since_id'      => $sinceID,
             'min_id'        => $minID,
             'limit'         => $limit,
             'exclude_types' => $exludeTypes,
             'account_id'    => $accountID,
-        ]);
+        ]));
     }
 
 
@@ -60,13 +62,13 @@ class Notifications extends Method
      *
      * @param string $id ID of the notification in the database
      *
-     * @return array Notification
+     * @return \Fundevogel\Mastodon\Entities\Notification Notification
      */
-    public function get(string $id): array
+    public function get(string $id): \Fundevogel\Mastodon\Entities\Notification
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Notification($this->api->get($endpoint));
     }
 
 

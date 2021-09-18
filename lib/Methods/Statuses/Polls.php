@@ -27,13 +27,13 @@ class Polls extends Method
      *
      * @param string $id ID of the poll in the database
      *
-     * @return array Poll
+     * @return \Fundevogel\Mastodon\Entities\Poll Poll
      */
-    public function get(string $id): array
+    public function get(string $id): \Fundevogel\Mastodon\Entities\Poll
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Poll($this->api->get($endpoint));
     }
 
 
@@ -43,12 +43,12 @@ class Polls extends Method
      * @param string $id ID of the poll in the database
      * @param array $choices Array of own votes containing index for each option (starting from 0)
      *
-     * @return array Poll
+     * @return \Fundevogel\Mastodon\Entities\Poll Poll
      */
-    public function vote(string $id, array $choices): array
+    public function vote(string $id, array $choices): \Fundevogel\Mastodon\Entities\Poll
     {
         $endpoint = "{$this->endpoint}/{$id}/votes";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Poll($this->api->post($endpoint));
     }
 }

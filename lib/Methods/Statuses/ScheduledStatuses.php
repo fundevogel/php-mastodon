@@ -34,12 +34,14 @@ class ScheduledStatuses extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\ScheduledStatus($data);
+        }, $this->api->get($endpoint, [
             'limit'    => $limit,
             'max_id'   => $maxID,
             'since_id' => $sinceID,
             'min_id'   => $minID,
-        ]);
+        ]));
     }
 
 
@@ -48,13 +50,13 @@ class ScheduledStatuses extends Method
      *
      * @param string $id ID of the scheduled status in the database
      *
-     * @return array ScheduledStatus
+     * @return \Fundevogel\Mastodon\Entities\ScheduledStatus ScheduledStatus
      */
-    public function get(string $id): array
+    public function get(string $id): \Fundevogel\Mastodon\Entities\ScheduledStatus
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\ScheduledStatus($this->api->get($endpoint));
     }
 
 
@@ -64,15 +66,15 @@ class ScheduledStatuses extends Method
      * @param string $id ID of the Status to be scheduled
      * @param string $scheduledAt ISO 8601 Datetime at which the status will be published. Must be at least 5 minutes into the future
      *
-     * @return array ScheduledStatus
+     * @return \Fundevogel\Mastodon\Entities\ScheduledStatus ScheduledStatus
      */
-    public function schedule(string $id, string $scheduledAt = ''): array
+    public function schedule(string $id, string $scheduledAt = ''): \Fundevogel\Mastodon\Entities\ScheduledStatus
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->put($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\ScheduledStatus($this->api->put($endpoint, [
             'scheduled_at' => $scheduledAt,
-        ]);
+        ]));
     }
 
 

@@ -33,9 +33,11 @@ class Announcements extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Announcement($data);
+        }, $this->api->get($endpoint, [
             'with_dismissed' => $withDismissed,
-        ]);
+        ]));
     }
 
 

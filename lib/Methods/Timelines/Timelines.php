@@ -37,7 +37,9 @@ class Timelines extends Method
     {
         $endpoint = "{$this->endpoint}/public";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Status($data);
+        }, $this->api->get($endpoint, [
             'local'      => $local,
             'remote'     => $remote,
             'only_media' => $onlyMedia,
@@ -45,7 +47,7 @@ class Timelines extends Method
             'since_id'   => $sinceID,
             'min_id'     => $minID,
             'limit'      => $limit,
-        ]);
+        ]));
     }
 
 
@@ -68,14 +70,16 @@ class Timelines extends Method
     {
         $endpoint = "{$this->endpoint}/tag/{$hashtag}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Status($data);
+        }, $this->api->get($endpoint, [
             'local'      => $local,
             'only_media' => $onlyMedia,
             'max_id'     => $maxID,
             'since_id'   => $sinceID,
             'min_id'     => $minID,
             'limit'      => $limit,
-        ]);
+        ]));
     }
 
 
@@ -96,13 +100,15 @@ class Timelines extends Method
     {
         $endpoint = "{$this->endpoint}/home";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Status($data);
+        }, $this->api->get($endpoint, [
             'local'    => $local,
             'max_id'   => $maxID,
             'since_id' => $sinceID,
             'min_id'   => $minID,
             'limit'    => $limit,
-        ]);
+        ]));
     }
 
 
@@ -123,11 +129,13 @@ class Timelines extends Method
     {
         $endpoint = "{$this->endpoint}/list/{$id}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Status($data);
+        }, $this->api->get($endpoint, [
             'max_id'   => $maxID,
             'since_id' => $sinceID,
             'min_id'   => $minID,
             'limit'    => $limit,
-        ]);
+        ]));
     }
 }

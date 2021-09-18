@@ -25,13 +25,13 @@ class Instance extends Method
      *
      * Information about the server
      *
-     * @return array Instance
+     * @return \Fundevogel\Mastodon\Entities\Instance Instance
      */
-    public function get(): array
+    public function get(): \Fundevogel\Mastodon\Entities\Instance
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Instance($this->api->get($endpoint));
     }
 
 
@@ -61,6 +61,8 @@ class Instance extends Method
     {
         $endpoint = "{$this->endpoint}/activity";
 
-        return $this->api->post($endpoint);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Activity($data);
+        }, $this->api->post($endpoint));
     }
 }

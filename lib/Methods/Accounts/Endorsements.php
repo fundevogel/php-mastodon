@@ -35,10 +35,12 @@ class Endorsements extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Account($data);
+        }, $this->api->get($endpoint, [
             'limit'    => $limit,
             'max_id'   => $maxID,
             'since_id' => $sinceID,
-        ]);
+        ]));
     }
 }

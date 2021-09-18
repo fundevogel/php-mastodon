@@ -35,10 +35,12 @@ class Favourites extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function () {
+            return new \Fundevogel\Mastodon\Entities\Status($data);
+        }, $this->api->get($endpoint, [
             'limit'  => $limit,
             'min_id' => $minID,
             'max_id' => $maxID,
-        ]);
+        ]));
     }
 }

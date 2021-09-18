@@ -65,20 +65,20 @@ class OAuth extends Method
      * @param string $scope List of requested OAuth scopes, separated by spaces. Must be a subset of scopes declared during app registration. If not provided, defaults to `read`
      * @param string $redirectURI Set a URI to redirect the user to. If this parameter is set to `urn:ietf:wg:oauth:2.0:oob` then the token will be shown instead. Must match one of the redirect URIs declared during app registration
      *
-     * @return array
+     * @return \Fundevogel\Mastodon\Entities\Token
      */
-    public function token(string $clientID, string $clientSecret, string $grantType = 'client_credentials', string $code = '', string $scope = 'read', string $redirectURI = 'urn:ietf:wg:oauth:2.0:oob'): array
+    public function token(string $clientID, string $clientSecret, string $grantType = 'client_credentials', string $code = '', string $scope = 'read', string $redirectURI = 'urn:ietf:wg:oauth:2.0:oob'): \Fundevogel\Mastodon\Entities\Token
     {
         $endpoint = "{$this->endpoint}/token";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\Token($this->api->post($endpoint, [
             'client_id'     => $clientID,
             'client_secret' => $clientSecret,
             'grant_type'    => $grantType,
             'scope'         => $scope,
             'code'          => $code,
             'redirect_uri'  => $redirectURI,
-        ]);
+        ]));
     }
 
 

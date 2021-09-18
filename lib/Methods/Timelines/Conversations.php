@@ -36,12 +36,14 @@ class Conversations extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Conversation($data);
+        }, $this->api->get($endpoint, [
             'max_id'   => $maxID,
             'since_id' => $sinceID,
             'min_id'   => $minID,
             'limit'    => $limit,
-        ]);
+        ]));
     }
 
 
@@ -65,12 +67,12 @@ class Conversations extends Method
      *
      * @param string $id ID of the conversation in the database
      *
-     * @return array Conversation
+     * @return \Fundevogel\Mastodon\Entities\Conversation Conversation
      */
-    public function read(string $id): array
+    public function read(string $id): \Fundevogel\Mastodon\Entities\Conversation
     {
         $endpoint = "{$this->endpoint}/{$id}/read";
 
-        return $this->api->post($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Conversation($this->api->post($endpoint));
     }
 }

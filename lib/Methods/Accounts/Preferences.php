@@ -23,12 +23,14 @@ class Preferences extends Method
     /**
      * Views user preferences
      *
-     * @return array
+     * Preferences defined by the user in their account settings
+     *
+     * @return \Fundevogel\Mastodon\Entities\Preferences Preferences by key and value
      */
-    public function get(): array
+    public function get(): \Fundevogel\Mastodon\Entities\Preferences
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Preferences($this->api->get($endpoint));
     }
 }

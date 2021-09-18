@@ -30,18 +30,18 @@ class Media extends Method
      * @param string $description A plain-text description of the media, for accessibility purposes
      * @param string $focus Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0
      *
-     * @return array Attachment
+     * @return \Fundevogel\Mastodon\Entities\Attachment Attachment
      */
-    public function upload(object $file, object $thumbnail, string $description = '', string $focus = ''): array
+    public function upload(object $file, object $thumbnail, string $description = '', string $focus = ''): \Fundevogel\Mastodon\Entities\Attachment
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\Attachment($this->api->post($endpoint, [
             'file'        => $file,
             'thumbnail'   => $thumbnail,
             'description' => $description,
             'focus'       => $focus,
-        ]);
+        ]));
     }
 
 
@@ -52,13 +52,13 @@ class Media extends Method
      *
      * @param string $id The ID of the Attachment entity
      *
-     * @return array Attachment
+     * @return \Fundevogel\Mastodon\Entities\Attachment Attachment
      */
-    public function get(string $id): array
+    public function get(string $id): \Fundevogel\Mastodon\Entities\Attachment
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\Attachment($this->api->get($endpoint));
     }
 
 
@@ -73,17 +73,17 @@ class Media extends Method
      * @param string $description A plain-text description of the media, for accessibility purposes
      * @param string $focus Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0
      *
-     * @return array Attachment
+     * @return \Fundevogel\Mastodon\Entities\Attachment Attachment
      */
-    public function update(string $id, string $file = '', string $thumbnail = '', string $description = '', string $focus = ''): array
+    public function update(string $id, string $file = '', string $thumbnail = '', string $description = '', string $focus = ''): \Fundevogel\Mastodon\Entities\Attachment
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->put($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\Attachment($this->api->put($endpoint, [
             'file'        => $file,
             'thumbnail'   => $thumbnail,
             'description' => $description,
             'focus'       => $focus,
-        ]);
+        ]));
     }
 }

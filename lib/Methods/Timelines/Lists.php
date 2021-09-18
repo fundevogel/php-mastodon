@@ -31,7 +31,9 @@ class Lists extends Method
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->get($endpoint);
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\ListEntity($data);
+        }, $this->api->get($endpoint));
     }
 
 
@@ -44,13 +46,13 @@ class Lists extends Method
      *
      * @param string $id ID of the list in the database
      *
-     * @return array List
+     * @return \Fundevogel\Mastodon\Entities\ListEntity List
      */
-    public function get(string $id): array
+    public function get(string $id): \Fundevogel\Mastodon\Entities\ListEntity
     {
         $endpoint = "{$this->endpoint}/{$id}";
 
-        return $this->api->get($endpoint);
+        return new \Fundevogel\Mastodon\Entities\ListEntity($this->api->get($endpoint));
     }
 
 
@@ -62,16 +64,16 @@ class Lists extends Method
      * @param string $title The title of the list to be created
      * @param string $repliesPolicy Enumerable oneOf `followed`, `list` or `none`
      *
-     * @return array List
+     * @return \Fundevogel\Mastodon\Entities\ListEntity List
      */
-    public function create(string $title, string $repliesPolicy = 'list'): array
+    public function create(string $title, string $repliesPolicy = 'list'): \Fundevogel\Mastodon\Entities\ListEntity
     {
         $endpoint = "{$this->endpoint}";
 
-        return $this->api->post($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\ListEntity($this->api->post($endpoint, [
             'title'          => $title,
             'replies_policy' => $repliesPolicy,
-        ]);
+        ]));
     }
 
 
@@ -84,16 +86,16 @@ class Lists extends Method
      * @param string $title The title of the list to be created
      * @param string $repliesPolicy Enumerable oneOf `followed`, `list` or `none`
      *
-     * @return array List
+     * @return \Fundevogel\Mastodon\Entities\ListEntity List
      */
-    public function update(string $id, string $title = '', string $repliesPolicy = 'list'): array
+    public function update(string $id, string $title = '', string $repliesPolicy = 'list'): \Fundevogel\Mastodon\Entities\ListEntity
     {
         $endpoint = "{$this->endpoint}/{$id}/read";
 
-        return $this->api->put($endpoint, [
+        return new \Fundevogel\Mastodon\Entities\ListEntity($this->api->put($endpoint, [
             'title'          => $title,
             'replies_policy' => $repliesPolicy
-        ]);
+        ]));
     }
 
 
@@ -115,11 +117,13 @@ class Lists extends Method
     {
         $endpoint = "{$this->endpoint}/{$id}/accounts";
 
-        return $this->api->get($endpoint, [
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Account($data);
+        }, $this->api->get($endpoint, [
             'max_id'   => $maxID,
             'since_id' => $sinceID,
             'limit'    => $limit,
-        ]);
+        ]));
     }
 
 
