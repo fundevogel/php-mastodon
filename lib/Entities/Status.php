@@ -147,7 +147,9 @@ class Status extends Entity
      */
     public function mentions(): array
     {
-        return $this->data['mentions'];
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Mention($data);
+        }, $this->data['mentions']);
     }
 
 
@@ -158,7 +160,9 @@ class Status extends Entity
      */
     public function tags(): array
     {
-        return $this->data['tags'];
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Tag($data);
+        }, $this->data['tags']);
     }
 
 
@@ -169,7 +173,9 @@ class Status extends Entity
      */
     public function emojis(): array
     {
-        return $this->data['emojis'];
+        return array_map(function ($data) {
+            return new \Fundevogel\Mastodon\Entities\Tag($data);
+        }, $this->data['emojis']);
     }
 
 

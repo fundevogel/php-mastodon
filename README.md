@@ -85,6 +85,9 @@ var_dump($api->instance()->get());
     - notifications/push
     - search
     - admin
+- [ ] Implement missing API entities:
+    - admin/account
+    - admin/report
 
 
 **Happy coding!**
