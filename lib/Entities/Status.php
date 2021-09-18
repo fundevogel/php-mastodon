@@ -2,34 +2,22 @@
 
 namespace Fundevogel\Mastodon\Entities;
 
+use Fundevogel\Mastodon\Entities\Entity;
+
 
 /**
  * Class Status
+ *
+ * Represents a status posted by an account
+ *
+ * @see https://docs.joinmastodon.org/entities/status
  */
-class Status
+class Status extends Entity
 {
     /**
      * Enable media downloads
      */
     use \Fundevogel\Mastodon\Traits\Downloader;
-
-
-    /**
-     * Raw data
-     *
-     * @var array
-     */
-    public $data;
-
-
-    /**
-     * Constructor
-     */
-    public function __construct(array $data)
-    {
-        # Store raw data
-        $this->data = $data;
-    }
 
 
     /**
