@@ -5,8 +5,10 @@ namespace Fundevogel\Mastodon\Methods;
 
 /**
  * Class Method
+ *
+ * Base class for API methods
  */
-abstract Class Method
+abstract class Method
 {
     /**
      * API gateway
