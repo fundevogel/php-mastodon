@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class FeaturedTags
  *
  * Feature tags that you use frequently
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/featured_tags
  */
 class FeaturedTags extends Method
 {

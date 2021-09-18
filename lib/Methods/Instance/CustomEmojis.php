@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class CustomEmojis
  *
  * Each site can define and upload its own custom emoji to be attached to profiles or statuses
+ *
+ * @see https://docs.joinmastodon.org/methods/instance/custom_emojis
  */
 class CustomEmojis extends Method
 {

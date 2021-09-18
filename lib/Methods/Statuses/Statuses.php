@@ -3,13 +3,14 @@
 namespace Fundevogel\Mastodon\Methods\Statuses;
 
 use Fundevogel\Mastodon\Methods\Method;
-use Fundevogel\Mastodon\Entities\Status;
 
 
 /**
  * Class Statuses
  *
  * Publish, interact, and view information about statuses
+ *
+ * @see https://docs.joinmastodon.org/methods/statuses
  */
 class Statuses extends Method
 {

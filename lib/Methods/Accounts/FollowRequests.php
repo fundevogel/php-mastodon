@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class FollowRequests
  *
  * View and manage follow requests
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/follow_requests
  */
 class FollowRequests extends Method
 {

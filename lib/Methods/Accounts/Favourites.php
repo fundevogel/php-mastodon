@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Favourites
  *
  * View your favourites
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/favourites
  */
 class Favourites extends Method
 {

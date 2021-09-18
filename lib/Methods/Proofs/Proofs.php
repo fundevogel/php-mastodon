@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Proofs
  *
  * For use by identity providers
+ *
+ * @see https://docs.joinmastodon.org/methods/proofs
  */
 class Proofs extends Method
 {

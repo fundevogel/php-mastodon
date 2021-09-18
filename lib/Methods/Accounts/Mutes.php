@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Mutes
  *
  * View your mutes
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/mutes
  */
 class Mutes extends Method
 {

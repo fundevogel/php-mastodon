@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class OAuth
  *
  * Generate and manage OAuth tokens
+ *
+ * @see https://docs.joinmastodon.org/methods/apps/oauth
  */
 class OAuth extends Method
 {

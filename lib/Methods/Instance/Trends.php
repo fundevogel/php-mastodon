@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Trends
  *
  * View hashtags that are currently being used more frequently than usual
+ *
+ * @see https://docs.joinmastodon.org/methods/instance/trends
  */
 class Trends extends Method
 {

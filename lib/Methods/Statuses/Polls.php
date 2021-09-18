@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Polls
  *
  * View and vote on polls attached to statuses
+ *
+ * @see https://docs.joinmastodon.org/methods/statuses/polls
  */
 class Polls extends Method
 {

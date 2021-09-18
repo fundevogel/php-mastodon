@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class ScheduledStatuses
  *
  * Schedule statuses for your instance to publish later
+ *
+ * @see https://docs.joinmastodon.org/methods/statuses/scheduled_statuses
  */
 class ScheduledStatuses extends Method
 {

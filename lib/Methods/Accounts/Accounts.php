@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Accounts
  *
  * Methods concerning user accounts and related information
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts
  */
 class Accounts extends Method
 {

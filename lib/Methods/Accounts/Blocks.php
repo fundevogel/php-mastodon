@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Blocks
  *
  * View your blocks
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/blocks
  */
 class Blocks extends Method
 {

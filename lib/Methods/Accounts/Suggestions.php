@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Suggestions
  *
  * Server-generated suggestions on who to follow, based on previous positive interactions
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/suggestions
  */
 class Suggestions extends Method
 {

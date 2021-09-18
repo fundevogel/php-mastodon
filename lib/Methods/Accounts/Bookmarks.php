@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Bookmarks
  *
  * View your bookmarks
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/bookmarks
  */
 class Bookmarks extends Method
 {

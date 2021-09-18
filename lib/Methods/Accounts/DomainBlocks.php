@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class DomainBlocks
  *
  * View and update domain blocks
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/domain_blocks
  */
 class DomainBlocks extends Method
 {

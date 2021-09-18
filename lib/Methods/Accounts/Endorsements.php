@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Endorsements
  *
  * Feature other profiles on your own profile
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/endorsements
  */
 class Endorsements extends Method
 {

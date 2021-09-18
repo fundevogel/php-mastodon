@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Notifications
  *
  * Receive notifications for activity on your account or statuses
+ *
+ * @see https://docs.joinmastodon.org/methods/notifications
  */
 class Notifications extends Method
 {

@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class OEmbed
  *
  * For generating OEmbed previews
+ *
+ * @see https://docs.joinmastodon.org/methods/oembed
  */
 class OEmbed extends Method
 {

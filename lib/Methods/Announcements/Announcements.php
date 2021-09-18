@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Announcements
  *
  * For announcements set by administration
+ *
+ * @see https://docs.joinmastodon.org/methods/announcements
  */
 class Announcements extends Method
 {

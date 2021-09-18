@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Directory
  *
  * A directory of profiles that your website is aware of
+ *
+ * @see https://docs.joinmastodon.org/methods/instance/directory
  */
 class Directory extends Method
 {

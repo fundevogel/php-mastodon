@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Apps
  *
  * Registers client applications that can be used to obtain OAuth tokens
+ *
+ * @see https://docs.joinmastodon.org/methods/apps
  */
 class Apps extends Method
 {

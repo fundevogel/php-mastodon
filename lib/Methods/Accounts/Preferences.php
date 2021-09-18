@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Preferences
  *
  * Preferred common behaviors to be shared across clients
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/preferences
  */
 class Preferences extends Method
 {

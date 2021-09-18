@@ -11,6 +11,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Direct conversations with other participants
  *
  * Currently, just threads containing a post with "direct" visibility
+ *
+ * @see https://docs.joinmastodon.org/methods/timelines/conversations
  */
 class Conversations extends Method
 {

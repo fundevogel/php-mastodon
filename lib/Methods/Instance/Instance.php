@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Instance
  *
  * Informational endpoint to discover information about a Mastodon website
+ *
+ * @see https://docs.joinmastodon.org/methods/instance
  */
 class Instance extends Method
 {

@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Media
  *
  * Attach media to authored statuses
+ *
+ * @see https://docs.joinmastodon.org/methods/statuses/media
  */
 class Media extends Method
 {

@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Reports
  *
  * Report problematic users to your moderators
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/reports
  */
 class Reports extends Method
 {

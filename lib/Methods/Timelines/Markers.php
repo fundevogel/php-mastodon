@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Markers
  *
  * Save and restore your position in timelines
+ *
+ * @see https://docs.joinmastodon.org/methods/timelines/markers
  */
 class Markers extends Method
 {

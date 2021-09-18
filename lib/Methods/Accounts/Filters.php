@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Filters
  *
  * Create and manage filters
+ *
+ * @see https://docs.joinmastodon.org/methods/accounts/filters
  */
 class Filters extends Method
 {

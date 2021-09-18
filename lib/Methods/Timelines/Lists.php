@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Lists
  *
  * View and manage lists
+ *
+ * @see https://docs.joinmastodon.org/methods/timelines/lists
  */
 class Lists extends Method
 {

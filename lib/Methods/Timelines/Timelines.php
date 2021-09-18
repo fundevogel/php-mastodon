@@ -9,6 +9,8 @@ use Fundevogel\Mastodon\Methods\Method;
  * Class Timelines
  *
  * Read and view timelines of statuses
+ *
+ * @see https://docs.joinmastodon.org/methods/timelines
  */
 class Timelines extends Method
 {
