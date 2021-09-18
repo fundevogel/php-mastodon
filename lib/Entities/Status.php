@@ -38,22 +38,34 @@ class Status
      * @param string $directory Download directory
      * @param bool $overwrite Whether existing file should be overwritten
      *
-     * @return bool Whether media downloads were successful
+     * @return array Names of all downloaded files
      */
-    public function downloadMedia(string $directory, bool $overwrite = false): bool
+    public function downloadMedia(string $directory, bool $overwrite = false): array
     {
-        try {
-            foreach ($this->data['media_attachments'] as $media) {
+        # Log downloaded files
+        $downloads = [];
+
+        # Loop over media attachments
+        foreach ($this->data['media_attachments'] as $media) {
+            try {
                 # Download files
                 # (1) Original file
-                $this->download($media['url'], $directory, $overwrite);
+                $original = basename($media['url']);
+
+                if ($this->download($media['url'], $directory, $original, $overwrite)) {
+                    $downloads[] = $original;
+                }
 
                 # (2) Preview image
-                $this->download($media['preview_url'], $directory, 'thumb_', $overwrite);
-            }
+                $thumb = 'thumb_' . basename($media['preview_url']);
 
-        } catch (\Exception $e) {}
+                if ($this->download($media['preview_url'], $directory, $thumb, $overwrite)) {
+                    $downloads[] = $thumb;
+                }
 
-        return false;
+            } catch (\Exception $e) {}
+        }
+
+        return $downloads;
     }
 }

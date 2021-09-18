@@ -24,15 +24,16 @@ trait Downloader
      *
      * @param string $url Target file URL
      * @param string $directory Download directory
-     * @param string $prefix Filename prefix
+     * @param string $file Filename (with extension)
      * @param bool $overwrite Whether existing file should be overwritten
      *
      * @return bool Whether download was successful
      */
-    private function download(string $url, string $directory, string $prefix = '', bool $overwrite = false): bool
+    private function download(string $url, string $directory, string $file = null, bool $overwrite = false): bool
     {
         # Build path to file
-        $file = $directory . '/' . $prefix . basename($url);
+        $name = $file ?? basename($url);
+        $file = $directory . '/' . $name;
 
         # Skip if file exists & overwriting it is disabled
         if (file_exists($file) && !$overwrite) {
