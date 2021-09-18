@@ -48,19 +48,11 @@ class Status
         # Loop over media attachments
         foreach ($this->data['media_attachments'] as $media) {
             try {
-                # Download files
-                # (1) Original file
-                $original = basename($media['url']);
+                # Download original files
+                $file = basename($media['url']);
 
-                if ($this->download($media['url'], $directory, $original, $overwrite)) {
-                    $downloads[] = $original;
-                }
-
-                # (2) Preview image
-                $thumb = 'thumb_' . basename($media['preview_url']);
-
-                if ($this->download($media['preview_url'], $directory, $thumb, $overwrite)) {
-                    $downloads[] = $thumb;
+                if ($this->download($media['url'], $directory, $file, $overwrite)) {
+                    $downloads[] = $file;
                 }
 
             } catch (\Exception $e) {}
