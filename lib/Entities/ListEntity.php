@@ -6,10 +6,10 @@ use Fundevogel\Mastodon\Entities\Entity;
 
 
 /**
- * Class List
+ * Class ListEntity
  *
  * Represents a list of some users that the authenticated user follows
  *
  * @see https://docs.joinmastodon.org/entities/list
  */
-class List extends Entity {}
+class ListEntity extends Entity {}
