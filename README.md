@@ -5,6 +5,7 @@ A small PHP library for interacting with [Mastodon](https://en.wikipedia.org/wik
 
 **Note**: Before you get started, be sure to [create an application](https://docs.joinmastodon.org/client/token) (under "Development" in your profile settings) first.
 
+
 ## Getting started
 
 Install this package with [Composer](https://getcomposer.org):
@@ -44,17 +45,17 @@ $api->logIn();
 
 # Fetch statuses of given account
 foreach ($api->accounts()->statuses('106612343490709443') as $status) {
-    echo $status['content'];
+    echo $status->content();
 }
 
 # Note: In case you obtained login-level access, you may omit the ID parameter, which gives back your own account's statuses, like so:
 foreach ($api->accounts()->statuses() as $status) {
-    echo $status['content'];
+    echo $status->content();
 }
 
 # Fetch followers
 foreach ($api->accounts()->followers('106612343490709443') as $follower) {
-    echo $follower['display_name'];
+    echo $follower->displayName();
 }
 
 # View your timelines
@@ -75,19 +76,43 @@ var_dump($api->instance()->get());
 
 **Note:** In most cases, using `$api->logIn()` will be enough. You may then view other people's statuses, etc as well as your own by providing your account ID as parameter as shown above.
 
+
+### .. but I need more docs!
+
+First, have a look at [the docs](https://docs.joinmastodon.org).
+
+Now, all API methods match their URL counterparts:
+
+- `mastodon.example/api/v1/accounts/:id` becomes `$api->accounts()->get($id)`
+- `mastodon.example/api/v1/accounts/:id/statuses` becomes `$api->accounts()->statuses($id)`
+- `mastodon.example/api/v1/timelines/home` becomes `$api->timelines()->home()`
+- `mastodon.example/api/v1/statuses/:id` becomes `$api->statuses()->get($id)`
+
+.. same goes for the resulting API entities you get back. For example, the [`Status`](https://docs.joinmastodon.org/entities/status) entity methods match their array counterparts as found in the docs (only camelcased):
+
+- `id` may be accessed with `$status->id()`
+- `created_at` may be accessed with `$status->createdAt()`
+- `account` may be accessed with `$status->account()` (which in turn gives an [`Account`](https://docs.joinmastodon.org/entities/account) entity)
+
+
 ## Roadmap
 
 - [ ] Add tests
-- [x] Implement authentication helpers
-- [ ] Return API entities as individual classes
-- [ ] Implement missing API methods:
+- [x] Add authentication helpers
+- [x] Return API entities as individual classes
+- [ ] Add missing API methods:
     - timelines/streaming
     - notifications/push
     - search
     - admin
-- [ ] Implement missing API entities:
+- [ ] Add missing API entities:
     - admin/account
     - admin/report
+- [ ] Update empty API entities:
+    - error
+    - pushsubscription
+    - report
+    - scheduledstatus
 
 
 **Happy coding!**
