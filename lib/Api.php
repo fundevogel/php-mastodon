@@ -146,11 +146,11 @@ class Api
                 # .. otherwise, see if necessary ingredients already provided ..
                 if (empty($this->clientKey) && empty($this->clientSecret)) {
                     # .. otherwise, create an application to get them ..
-                    if ($applicationEntity = $this->apps()->create($this->appName, 'urn:ietf:wg:oauth:2.0:oob', implode(' ', $this->scope), $this->appURL)) {
-                        # .. and store them for later use
-                        $this->clientKey = $applicationEntity->data['client_id'];
-                        $this->clientSecret = $applicationEntity->data['client_secret'];
-                    }
+                    $application = $this->apps()->create($this->appName, 'urn:ietf:wg:oauth:2.0:oob', implode(' ', $this->scope), $this->appURL);
+
+                    # .. and store them for later use
+                    $this->clientKey = $application->clientID();
+                    $this->clientSecret = $application->clientSecret();
                 }
 
                 # Fallback to application-level access
@@ -163,19 +163,19 @@ class Api
                 }
 
                 # Obtain access token
-                $tokenEntity = $this->oauth()->token($this->clientKey, $this->clientSecret, $grantType, $authCode);
+                $token = $this->oauth()->token($this->clientKey, $this->clientSecret, $grantType, $authCode);
 
                 # If successful ..
-                if (isset($tokenEntity->data['access_token'])) {
+                if ($token->hasAccessToken()) {
                     # .. store it for later
-                    $this->accessToken = $tokenEntity->data['access_token'];
+                    $this->accessToken = $token->accessToken();
                 }
             }
 
             # If we got account-level access ..
-            if ($data = $this->accounts()->verifyCredentials()) {
+            if ($account = $this->accounts()->verifyCredentials()) {
                 # .. attempt to obtain ID for current account
-                $this->id = $data->data['id'];
+                $this->id = $account->id();
             }
 
             return true;

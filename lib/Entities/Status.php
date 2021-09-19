@@ -287,7 +287,7 @@ class Status extends Entity
     /**
      * Primary language of this status
      *
-     * @return null|string ISO 639 Part 1 two-letter language code
+     * @return null|string ISO 639-1 language two-letter code
      */
     public function language()
     {
