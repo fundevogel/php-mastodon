@@ -11,7 +11,7 @@ A small PHP library for interacting with [Mastodon](https://en.wikipedia.org/wik
 Install this package with [Composer](https://getcomposer.org):
 
 ```text
-composer require fundevogel/php-mastodon
+composer require mrwilsonsworkshop/php-mastodon
 ```
 
 To get an idea how you could implement this, have a look at these examples:
@@ -21,7 +21,7 @@ To get an idea how you could implement this, have a look at these examples:
 
 require_once('vendor/autoload.php');
 
-use Fundevogel\Mastodon\Api;
+use MrWilsonsWorkshop\Mastodon\Api;
 
 # Initialize Api for given instance (defaults to 'mastodon.social')
 $api = new Api('freiburg.social');

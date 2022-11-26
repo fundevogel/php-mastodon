@@ -1,5 +1,5 @@
 {
-    "name": "fundevogel/php-mastodon",
+    "name": "mrwilsonsworkshop/php-mastodon",
     "description": "A small PHP library for interacting with Mastodon's REST API.",
     "type": "library",
     "license": "GPL-3.0",
@@ -23,6 +23,12 @@
             "email": "hello@twobrain.io",
             "homepage": "https://twobrain.io",
             "role": "Developer"
+        },
+        {
+            "name": "Brent C. Wilson",
+            "email": "brent@hellomrwilson.com",
+            "homepage": "https://hellomrwilson.com",
+            "role": "Developer"
         }
     ],
     "require": {
@@ -34,12 +40,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Fundevogel\\Mastodon\\": "lib/"
+            "MrWilsonsWorkshop\\Mastodon\\": "lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Fundevogel\\Mastodon\\Tests\\": "tests/"
+            "MrWilsonsWorkshop\\Mastodon\\Tests\\": "tests/"
         }
     }
 }
