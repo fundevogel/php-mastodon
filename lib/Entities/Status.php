@@ -19,6 +19,16 @@ class Status extends Entity
      */
 
     /**
+     * Return RAW data
+     *
+     * @return array
+     */
+    public function rawData(): array
+    {
+        return $this->data;
+    }
+    
+    /**
      * ID of the status in the database
      *
      * @return string
