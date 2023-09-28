@@ -128,6 +128,16 @@ class Api
         $this->instance = $instance;
     }
 
+    /**
+     * Returns the client used to make requests.
+     *
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(): \GuzzleHttp\Client
+    {
+        return $this->client;
+    }
+
 
     /**
      * Logs in with an account
