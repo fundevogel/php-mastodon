@@ -220,7 +220,7 @@ class Api
      *
      * @return string
      */
-    private function buildURL(string $endpoint, array $query): string
+    public function buildURL(string $endpoint, array $query): string
     {
         # Build base URL from given components
         # (1) Set API as default URL
